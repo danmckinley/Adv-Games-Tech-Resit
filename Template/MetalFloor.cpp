@@ -1,76 +1,58 @@
 #include "MetalFloor.h"
-#include "Texture.h"
-#include <windows.h>
-#include ".\include\gl.h"
+
+//#include ".\include\gl.h"
 
 //metal texture from "http://www.photos-public-domain.com/2017/04/04/old-gray-tin-metal-texture/"
 
-CMetalFloor::CMetalFloor() {}
+CMetalFloor::CMetalFloor(){
+	v0 = CVector3f(-1.5f, 0.0f, -1.5f);
+	v1 = CVector3f(1.5f, 0.0f, -1.5f);
+	v2 = CVector3f(1.5f, 0.0f, 1.5f);
+	v3 = CVector3f(-1.5f, 0.0f, 1.5f);
 
-CMetalFloor::~CMetalFloor() {}
+	v4 = CVector3f(-1.5f, 0.33f, -1.5f);
+	v5 = CVector3f(1.5f, 0.33f, -1.5f);
+	v6 = CVector3f(1.5f, 0.33f, 1.5f);
+	v7 = CVector3f(-1.5f, 0.33f, 1.5f);
+}
 
 void CMetalFloor::Initialise() {
-	CTexture texture;
-	texture.Load("Resources\\Textures\\MetalTexture.jpg", false);
-	m_textureID = texture.m_textureID;
-
+	SetTexture("Resources\\Textures\\MetalTexture.jpg");
 }
 
-void CMetalFloor::preRender() {
-	//glDisable(GL_TEXTURE_2D);					// enable for no texture
-	glEnable(GL_TEXTURE_2D);					// disable for no texutre
-	glBindTexture(GL_TEXTURE_2D, m_textureID);  // disable for no texture
-	glEnable(GL_LIGHTING);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-}
-
-void CMetalFloor::postRender() {
-	glEnable(GL_LIGHTING);
-	glEnable(GL_TEXTURE_2D);
-	glDisable(GL_BLEND);
-}
-
-void CMetalFloor::Render(float r, float g, float b, float a) {
+void CMetalFloor::Render() {
+	SetPolygonsToWorldCoords();
 	preRender();
 	glPushMatrix(); {
-		glColor4f(r, g, b, a);
+		ApplySort();
 		glBegin(GL_QUAD_STRIP); {	//Renders two sides, and the top and bottom of a cuboid
-			glTexCoord2f(1, 0); glVertex3fv(v1);
-			glTexCoord2f(0, 0); glVertex3fv(v0);
-			glTexCoord2f(1, 1); glVertex3fv(v5);
-			glTexCoord2f(0, 1); glVertex3fv(v4);
-			glTexCoord2f(1, 0); glVertex3fv(v6);
-			glTexCoord2f(0, 0); glVertex3fv(v7);
-			glTexCoord2f(1, 1); glVertex3fv(v2);
-			glTexCoord2f(0, 1); glVertex3fv(v3);
-			glTexCoord2f(1, 0); glVertex3fv(v1);
-			glTexCoord2f(0, 0); glVertex3fv(v0);
+			glNormal3fv(Normal(v1, v0)); glTexCoord2f(1, 0); glVertex3f(v1.x, v1.y, v1.z);
+			glNormal3fv(Normal(v0, v5)); glTexCoord2f(0, 0); glVertex3f(v0.x, v0.y, v0.z);
+			glNormal3fv(Normal(v5, v4)); glTexCoord2f(1, 1); glVertex3f(v5.x, v5.y, v5.z);
+			glNormal3fv(Normal(v4, v6)); glTexCoord2f(0, 1); glVertex3f(v4.x, v4.y, v4.z);
+			glNormal3fv(Normal(v6, v7)); glTexCoord2f(1, 0); glVertex3f(v6.x, v6.y, v6.z);
+			glNormal3fv(Normal(v7, v2)); glTexCoord2f(0, 0); glVertex3f(v7.x, v7.y, v7.z);
+			glNormal3fv(Normal(v2, v3)); glTexCoord2f(1, 1); glVertex3f(v2.x, v2.y, v2.z);
+			glNormal3fv(Normal(v3, v1)); glTexCoord2f(0, 1); glVertex3f(v3.x, v3.y, v3.z);
+			glNormal3fv(Normal(v1, v0)); glTexCoord2f(1, 0); glVertex3f(v1.x, v1.y, v1.z);
+			glNormal3fv(Normal(v0, v1)); glTexCoord2f(0, 0); glVertex3f(v0.x, v0.y, v0.z);
 		}
 		glEnd();
 		glBegin(GL_QUADS); {		//renders the "left" side
-			glTexCoord2f(1, 1); glVertex3fv(v4);
-			glTexCoord2f(1, 0); glVertex3fv(v0);
-			glTexCoord2f(0, 0); glVertex3fv(v3);
-			glTexCoord2f(0, 1); glVertex3fv(v7);
+			glNormal3fv(Normal(v4, v0)); glTexCoord2f(1, 1); glVertex3f(v4.x, v4.y, v4.z);
+			glNormal3fv(Normal(v0, v3)); glTexCoord2f(1, 0); glVertex3f(v0.x, v0.y, v0.z);
+			glNormal3fv(Normal(v3, v7)); glTexCoord2f(0, 0); glVertex3f(v3.x, v3.y, v3.z);
+			glNormal3fv(Normal(v7, v4)); glTexCoord2f(0, 1); glVertex3f(v7.x, v7.y, v7.z);
 		}
 		glEnd();
 		glBegin(GL_QUADS); {		//renders the "right" side
-			glTexCoord2f(1, 1); glVertex3fv(v6);
-			glTexCoord2f(1, 0); glVertex3fv(v2);
-			glTexCoord2f(0, 0); glVertex3fv(v1);
-			glTexCoord2f(0, 1); glVertex3fv(v5);
+			glNormal3fv(Normal(v6, v2)); glTexCoord2f(1, 1); glVertex3f(v6.x, v6.y, v6.z);
+			glNormal3fv(Normal(v2, v1)); glTexCoord2f(1, 0); glVertex3f(v2.x, v2.y, v2.z);
+			glNormal3fv(Normal(v1, v5)); glTexCoord2f(0, 0); glVertex3f(v1.x, v1.y, v1.z);
+			glNormal3fv(Normal(v5, v6)); glTexCoord2f(0, 1); glVertex3f(v5.x, v5.y, v5.z);
 		}
 		glEnd();
 	}
 	glPopMatrix();
 	postRender();
-}
-
-CVector3f CMetalFloor::Normal(CVector3f p, CVector3f q) {	// Method to calculate normals
-	float a = p.y*q.z - p.z*q.y;
-	float b = p.z*q.x - p.x*q.z;
-	float c = p.x*q.y - p.y*q.x;
-	
-	return CVector3f(a, b, c);
 }

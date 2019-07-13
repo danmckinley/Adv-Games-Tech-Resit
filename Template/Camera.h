@@ -3,7 +3,7 @@
 
 #include "Vector3f.h"
 
-#define MAX_VERTICAL_ROTATION 15
+#define MAX_VERTICAL_ROTATION 50
 
 class Camera {
 public:

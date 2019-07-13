@@ -22,7 +22,6 @@ bool CTerrain::Initialise()
 
 void CTerrain::Render()
 {
-
 	float TERRAIN_SIZE = 500;
 	
 	GLfloat x, y, z, length, width;
@@ -47,7 +46,4 @@ void CTerrain::Render()
 		glTexCoord2f(0.0f, 30.0f); glVertex3f(x + width, y,			z + length); 
 		glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y,			z);
 	glEnd();
-
-
-
 }

@@ -13,11 +13,10 @@
 Camera::Camera()
 {
 	m_position = CVector3f(0.0f, 4.0f, 0.0f);
-	m_viewPoint = CVector3f(0.0f, 1.0f, 5.0f);
+	m_viewPoint = CVector3f(0.0f, 0.75f, 5.0f);
 	m_upVector = CVector3f(0.0f, 0.0f, 0.0f); 
 	m_currentSpeed = 5.0f;
 	m_totalVerticalRotation = 0.0f;
-
 }
 
 // Set a specific camera

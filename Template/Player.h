@@ -1,42 +1,43 @@
 #pragma once
+#include "Entity.h"
 
-#include <windows.h>
-#include "Vector3f.h"
-#include "Camera.h"
-#include "MD2Animation.h"
-#define _USE_MATH_DEFINES
-#include <math.h>
-#include "include\gl.h"
-#define YOHKO_RUN 1
-#define YOHKO_ATTACK 2
-
-class CPlayer {
+class CPlayer : public CEntity {
 public:
 	CPlayer();
-	~CPlayer();
-	void Update(float dt);
-	void Initialise();
-	void Render();
+	void Update(float dt) override;
+	void Initialise() override;
+	void Render() override;
 
-	void UpdateCamera(Camera &camera); //TODO
+	void UpdateCamera(Camera &camera); 
 	void Advance(float speed);
 	void Strafe(float speed);
 	void Turn(float angle);
+	void Jump();
 	void Attack();
 
 	void Movement(double dt);
+									// method which changes the m_rightHandedCamera boolean which 
+	void FlipCamera();				// determines which direction the camera is offset behind the player	
 
-	void SetModelRotationByMouse();
+	void SetMoveForward(bool b);	//methods for setting the directional movement booleans
+	void SetMoveBackwards(bool b);
+	void SetStrafeLeft(bool b);
+	void SetStrafeRight(bool b);
 
+	void SetStandAnimation();		// methods to set the mesh animation
 	void SetRunAnimation();
 
+	void DecreaseShields(int damage);
+	int GetShields();
 private:
-	CVector3f m_position;
-	CVector3f m_direction;
-	CVector3f m_strafeVector; //
+	int m_shieldHealth = 100;
+	CVector3f strafeVector; 
+	CVector3f camFacing;
 	float m_currentSpeed;
 	float m_defaultSpeed;
-
-	CMD2Model m_mesh;
-
+	bool m_rightHandedCamera;		//boolean for handling which side the camera is on relative to player
+	bool moveForward = false;		//booleans for handling player movement
+	bool moveBackwards = false;
+	bool strafeLeft = false;
+	bool strafeRight = false;
 };

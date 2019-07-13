@@ -39,7 +39,7 @@ bool CSkybox::Create(const char *bmpDirectory, const float fSize)
 void CSkybox::Render(float x, float y, float z, float width, float height, float length)
 {
 	glColor3f(1, 1, 1);
-
+	glDisable(GL_LIGHTING);
 	// Bind the BACK texture of the sky map to the BACK side of the cube
 	glBindTexture(GL_TEXTURE_2D, m_textureIDs[SKYBOX_BACK_ID]);
 
@@ -131,5 +131,6 @@ void CSkybox::Render(float x, float y, float z, float width, float height, float
 		glTexCoord2f(1.0f, 1.0f); glVertex3f(x + width, y + height,	z + length); 
 		glTexCoord2f(0.0f, 1.0f); glVertex3f(x + width, y + height,	z);
 	glEnd();
+	glEnable(GL_LIGHTING);
 }
 

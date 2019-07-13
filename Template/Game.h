@@ -26,20 +26,29 @@
 #include "SpecialFX.h"
 #include "Tetrahedron.h"
 #include "Player.h"
-#include "SupportBeam.h"
+#include "Enemy.h"
 #include "MetalFloor.h"
+#include "ShippingContainer.h"
+#include "LampPost.h"
+#include "Grenade.h"
 #include "SplashScreen.h"
+
 
 
 
 class Game {
 public:
-
+	void HandlePlayerInput(UINT message, WPARAM w_param);
 private:
 	void Initialise();		// Initialises the games (load assets, etc.)
 	void Update();			// Update the simulation at each time step
+	void DetectCollisions();
+	void SetUpUI();
 	void Render();			// Render the scene
+	void RenderGrenades();
 	void RenderMetalFloors();
+	void RenderShippingContainers();
+	void RenderLampPosts();
 	void GameLoop();		// The game loop
 
 	// Game objects
@@ -47,33 +56,34 @@ private:
 	CHighResolutionTimer m_highResolutionTimer;		// A timer for measuring the time between frames
 	CTerrain m_terrain;								// The terrain (planar)
 	CSkybox m_skybox;								// A skybox surrounding the scene
-	CBouncingBall m_ball;							// A bouncing ball, showing simple physics
+	//CBouncingBall m_ball;							// A bouncing ball, showing simple physics
 	CAudio m_audio;									// Audio using FMOD
 	CText m_text;									// Text for the head's up display
 	CLighting m_lighting;							// Lighting 
 	CMaterial m_material;							// Material
-	COpenAssetImporterMesh m_cow;					// A 3D mesh model 
-	COpenAssetImporterMesh m_tree;					// Another 3D mesh model
-	CMD2Model m_yohko;								// An animated (MD2) model
 	CSpecialFX m_fx;
-	CTetrahedron m_tetrahedron;
 
 	COpenAssetImporterMesh m_jeep;
 	CPlayer m_player;
+	CEnemy m_enemy;
 	
 	bool m_introScreen;								// A boolean flag indicating if the intro screen is on
 	double m_dt;									// A variable to measure the amount of time elasped between frames
-	int m_animation;								// Current animation of MD2 model
-
+	
 	COpenAssetImporterMesh m_watchTower;
 
-	CSupportBeam m_supportBeam;						// Primitive object made using GL_LINES
-	//CMetalFloor m_metalFloor;						// Primitive object made using GL_QUADS and GL_QUAD_STRIP
-	CSplashScreen m_splashScreen;					// Member variable splash screen
-	std::vector<CMetalFloor> m_metalFloors;
+	char health_ui[32];														// variable for storing the player's current health in the form "Health: (current health)"
+	char shields_ui[32];														// variable for storing player's current shields
+	CSplashScreen m_splashScreen;											// Member variable splash screen
 	CVector3f m_lightPos;
+	CVector3f m_lampLightPos;
+	std::vector<shared_ptr<CPrimitiveObject>> m_obstacles;					// vector containing all primitive objects  
+	std::vector<shared_ptr<CMetalFloor>> m_metalFloors;						// vector of all metalFloors
+	std::vector<shared_ptr<CShippingContainer>> m_shippingContainers;		// vector of all shippingContainers
+	std::vector<shared_ptr<CLampPost>> m_lampPosts;							// vector of all lampPosts
+	std::vector<shared_ptr<CEntity>> m_entities;
+	std::vector<shared_ptr<CGrenade>> m_grenades;
 	
-
 public:
 	~Game();
 	static Game& GetInstance();
@@ -81,7 +91,6 @@ public:
 	void SetHinstance(HINSTANCE hinstance);
 	LRESULT ProcessEvents(HWND window,UINT message, WPARAM w_param, LPARAM l_param);
 	
-
 private:
 	Game::Game();
 	Game::Game(const Game&);
@@ -89,6 +98,4 @@ private:
 
 	GameWindow m_GameWindow;
 	HINSTANCE m_hinstance;
-
-
 };

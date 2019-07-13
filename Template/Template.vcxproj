@@ -78,18 +78,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="3DMaths.cpp" />
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="BouncingBall.cpp" />
+    <ClCompile Include="BoundingBox.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="ExplosionSprite.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameWindow.cpp" />
+    <ClCompile Include="Grenade.cpp" />
     <ClCompile Include="HighResolutionTimer.cpp" />
+    <ClCompile Include="LampPost.cpp" />
     <ClCompile Include="Lighting.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Md2Animation.cpp" />
     <ClCompile Include="MetalFloor.cpp" />
     <ClCompile Include="OpenAssetImporterMesh.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PrimitiveObject.cpp" />
+    <ClCompile Include="ShippingContainer.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="SpecialFX.cpp" />
     <ClCompile Include="SplashScreen.cpp" />
@@ -101,18 +110,27 @@
     <ClCompile Include="Vector3f.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="3DMaths.h" />
     <ClInclude Include="Audio.h" />
     <ClInclude Include="BouncingBall.h" />
+    <ClInclude Include="BoundingBox.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="ExplosionSprite.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameWindow.h" />
+    <ClInclude Include="Grenade.h" />
     <ClInclude Include="HighResolutionTimer.h" />
     <ClInclude Include="Lighting.h" />
+    <ClInclude Include="LampPost.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Md2Animation.h" />
     <ClInclude Include="MetalFloor.h" />
     <ClInclude Include="OpenAssetImporterMesh.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PrimitiveObject.h" />
+    <ClInclude Include="ShippingContainer.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="SpecialFX.h" />
     <ClInclude Include="SplashScreen.h" />

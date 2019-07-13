@@ -11,6 +11,8 @@ public:
 
 	void SetLight(CVector3f p0);
 
+	void SetTestLight(CVector3f p0);
+
 	// Can create other lighting methods here
 
 private:
