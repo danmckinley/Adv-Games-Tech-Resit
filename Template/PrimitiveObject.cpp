@@ -2,6 +2,8 @@
 #include ".\include\gl.h"
 #include <iostream>
 
+// ONLY FOR CUBOIDS
+
 CPrimitiveObject::CPrimitiveObject()
 {
 	rotateBy[0] = 0.0; rotateBy[1] = 0.0; rotateBy[2] = 0.0; rotateBy[3] = 0.0;
