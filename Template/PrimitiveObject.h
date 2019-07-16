@@ -9,6 +9,7 @@
 #include "Texture.h"
 #include "3DMaths.h"
 
+////////////////////////////// PRIMITIVE CUBOID CLASS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 class CPrimitiveObject {
 public:
@@ -66,4 +67,19 @@ protected:
 	CVector3f v5;
 	CVector3f v6;
 	CVector3f v7;
+};
+
+////////////////////////////// PRIMITIVE OCTAHEDRON CLASS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+class CPrimitiveOctahedron : public CPrimitiveObject {
+public:
+	CPrimitiveOctahedron();
+	void SetPolygonsToWorldCoords();
+protected:
+	CVector3f v0;
+	CVector3f v1;
+	CVector3f v2;
+	CVector3f v3;
+	CVector3f v4;
+	CVector3f v5;
 };

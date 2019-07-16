@@ -170,5 +170,41 @@ void CPrimitiveCuboid::SetPolygonsToWorldCoords() {
 	}
 }
 
+////////////////////////////// PRIMITIVE OCTAHEDRON METHODS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
+CPrimitiveOctahedron::CPrimitiveOctahedron()
+{
+	m_numOfVerts = 8 * 3; // number of vertices for each triangle (3) multiplied by the number of triangles (8)
+	m_polygons = new CVector3f[m_numOfVerts];
+}
 
+void CPrimitiveOctahedron::SetPolygonsToWorldCoords()
+{
+	if (!polygonsSetToWorldCoords) {
+		m_polygons[0] = ToWorldCoordinates(v0);//first triangle
+		m_polygons[1] = ToWorldCoordinates(v2);
+		m_polygons[2] = ToWorldCoordinates(v1);
+		m_polygons[3] = ToWorldCoordinates(v0);//next triangle
+		m_polygons[4] = ToWorldCoordinates(v1);
+		m_polygons[5] = ToWorldCoordinates(v4);
+		m_polygons[6] = ToWorldCoordinates(v0);//next triangle
+		m_polygons[7] = ToWorldCoordinates(v4);
+		m_polygons[8] = ToWorldCoordinates(v3);
+		m_polygons[9] = ToWorldCoordinates(v0);//next triangle
+		m_polygons[10] = ToWorldCoordinates(v3);
+		m_polygons[11] = ToWorldCoordinates(v2);
+		m_polygons[12] = ToWorldCoordinates(v5);//next triangle
+		m_polygons[13] = ToWorldCoordinates(v1);
+		m_polygons[14] = ToWorldCoordinates(v2);
+		m_polygons[15] = ToWorldCoordinates(v5);//next triangle
+		m_polygons[16] = ToWorldCoordinates(v4);
+		m_polygons[17] = ToWorldCoordinates(v1);
+		m_polygons[18] = ToWorldCoordinates(v5);//next triangle
+		m_polygons[19] = ToWorldCoordinates(v3);
+		m_polygons[20] = ToWorldCoordinates(v4);
+		m_polygons[21] = ToWorldCoordinates(v5);//next triangle
+		m_polygons[22] = ToWorldCoordinates(v2);
+		m_polygons[23] = ToWorldCoordinates(v3);
+		polygonsSetToWorldCoords = true;
+	}
+}
