@@ -123,7 +123,7 @@ CVector3f CPrimitiveObject::GetOffset() {
 
 CPrimitiveCuboid::CPrimitiveCuboid() 
 {
-	m_numOfVerts = 12 * 3; // number of vertices for each triangle multiplied by the number of triangles
+	m_numOfVerts = 12 * 3; // number of vertices for each triangle (3) multiplied by the number of triangles (6 QUADS so 12 TRIS)
 	m_polygons = new CVector3f[m_numOfVerts];
 }
 
