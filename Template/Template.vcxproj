@@ -88,6 +88,7 @@
     <ClCompile Include="ExplosionSprite.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameWindow.cpp" />
+    <ClCompile Include="Gem.cpp" />
     <ClCompile Include="Grenade.cpp" />
     <ClCompile Include="HighResolutionTimer.cpp" />
     <ClCompile Include="LampPost.cpp" />
@@ -120,6 +121,7 @@
     <ClInclude Include="ExplosionSprite.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameWindow.h" />
+    <ClInclude Include="Gem.h" />
     <ClInclude Include="Grenade.h" />
     <ClInclude Include="HighResolutionTimer.h" />
     <ClInclude Include="Lighting.h" />

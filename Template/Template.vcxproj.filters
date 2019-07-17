@@ -105,6 +105,9 @@
     <ClCompile Include="ExplosionSprite.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="Gem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SpecialFX.h">
@@ -198,6 +201,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ExplosionSprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Gem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
