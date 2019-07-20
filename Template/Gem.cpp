@@ -33,7 +33,12 @@ void CGem::Render() {
 	glPushMatrix(); {
 		ApplySort();
 		glColor3f(0.0, 1.0, 0.0);
+
+		
+		
 		glBegin(GL_TRIANGLE_FAN); {	//Renders bottom half of octahedron
+			glNormal3fv(VertexNormal(v0, v1, v3)); glTexCoord2f(0, 0);		glVertex3f(v0.x, v0.y, v0.z);
+
 			glNormal3fv(VertexNormal(v0, v1, v3)); glTexCoord2f(0, 0);		glVertex3f(v0.x, v0.y, v0.z);
 			glNormal3fv(VertexNormal(v1, v0, v2)); glTexCoord2f(0, 1);		glVertex3f(v1.x, v1.y, v1.z);
 			glNormal3fv(VertexNormal(v2, v0, v3)); glTexCoord2f(0.285, 0);	glVertex3f(v2.x, v2.y, v2.z);
