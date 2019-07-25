@@ -7,23 +7,40 @@
   Entity.cpp
   ExplosionSprite.cpp
   Game.cpp
-e:\projects\adv-games-tech-resit\resit\adv-games-tech-resit\template\game.cpp(133): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\game.cpp(133): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1774): note: see declaration of 'sprintf'
-e:\projects\adv-games-tech-resit\resit\adv-games-tech-resit\template\game.cpp(135): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\game.cpp(135): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\string.h(133): note: see declaration of 'strcpy'
-e:\projects\adv-games-tech-resit\resit\adv-games-tech-resit\template\game.cpp(136): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\game.cpp(136): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\string.h(90): note: see declaration of 'strcat'
-e:\projects\adv-games-tech-resit\resit\adv-games-tech-resit\template\game.cpp(137): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\game.cpp(137): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\string.h(90): note: see declaration of 'strcat'
-e:\projects\adv-games-tech-resit\resit\adv-games-tech-resit\template\game.cpp(141): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\game.cpp(141): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1774): note: see declaration of 'sprintf'
-e:\projects\adv-games-tech-resit\resit\adv-games-tech-resit\template\game.cpp(143): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\game.cpp(143): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\string.h(133): note: see declaration of 'strcpy'
-e:\projects\adv-games-tech-resit\resit\adv-games-tech-resit\template\game.cpp(144): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\game.cpp(144): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\string.h(90): note: see declaration of 'strcat'
-e:\projects\adv-games-tech-resit\resit\adv-games-tech-resit\template\game.cpp(145): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\game.cpp(145): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\string.h(90): note: see declaration of 'strcat'
   GameWindow.cpp
+  Gem.cpp
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(29): error C2065: 'v6': undeclared identifier
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(30): error C2065: 'v6': undeclared identifier
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(30): error C2065: 'v7': undeclared identifier
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(30): error C2660: 'glVertex3f': function does not take 1 arguments
+  c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\include\gl.h(1472): note: see declaration of 'glVertex3f'
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(31): error C2065: 'v7': undeclared identifier
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(31): error C2660: 'glVertex3f': function does not take 1 arguments
+  c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\include\gl.h(1472): note: see declaration of 'glVertex3f'
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(41): error C2065: 'v7': undeclared identifier
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(42): error C2065: 'v7': undeclared identifier
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(42): error C2660: 'glVertex3f': function does not take 1 arguments
+  c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\include\gl.h(1472): note: see declaration of 'glVertex3f'
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(46): error C2065: 'v6': undeclared identifier
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(46): error C2660: 'glVertex3f': function does not take 1 arguments
+  c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\include\gl.h(1472): note: see declaration of 'glVertex3f'
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(49): error C2065: 'v6': undeclared identifier
   Grenade.cpp
   HighResolutionTimer.cpp
   LampPost.cpp
@@ -33,12 +50,12 @@ e:\projects\adv-games-tech-resit\resit\adv-games-tech-resit\template\game.cpp(14
   MetalFloor.cpp
   OpenAssetImporterMesh.cpp
   Player.cpp
-  PrimitiveObject.cpp
   Generating Code...
-e:\projects\adv-games-tech-resit\resit\adv-games-tech-resit\template\game.cpp(495): warning C4715: 'Game::ProcessEvents': not all control paths return a value
-e:\projects\adv-games-tech-resit\resit\adv-games-tech-resit\template\3dmaths.cpp(84): warning C4172: returning address of local variable or temporary: normal
-e:\projects\adv-games-tech-resit\resit\adv-games-tech-resit\template\3dmaths.cpp(92): warning C4172: returning address of local variable or temporary: normal
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\game.cpp(495): warning C4715: 'Game::ProcessEvents': not all control paths return a value
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\3dmaths.cpp(84): warning C4172: returning address of local variable or temporary: normal
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\3dmaths.cpp(92): warning C4172: returning address of local variable or temporary: normal
   Compiling...
+  PrimitiveObject.cpp
   ShippingContainer.cpp
   SkyBox.cpp
   SpecialFX.cpp
@@ -50,4 +67,3 @@ e:\projects\adv-games-tech-resit\resit\adv-games-tech-resit\template\3dmaths.cpp
   Texture.cpp
   Vector3f.cpp
   Generating Code...
-  template.vcxproj -> E:\Projects\Adv-Games-Tech-Resit\Resit\Adv-Games-Tech-Resit\Debug\template.exe
