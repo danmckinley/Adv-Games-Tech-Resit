@@ -1,11 +1,4 @@
 ﻿  3DMaths.cpp
-  Audio.cpp
-  BouncingBall.cpp
-  BoundingBox.cpp
-  Camera.cpp
-  Enemy.cpp
-  Entity.cpp
-  ExplosionSprite.cpp
   Game.cpp
 c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\game.cpp(133): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1774): note: see declaration of 'sprintf'
@@ -23,47 +16,26 @@ c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\string.h(90): note: see declaration of 'strcat'
 c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\game.cpp(145): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\string.h(90): note: see declaration of 'strcat'
-  GameWindow.cpp
   Gem.cpp
-c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(29): error C2065: 'v6': undeclared identifier
-c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(30): error C2065: 'v6': undeclared identifier
-c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(30): error C2065: 'v7': undeclared identifier
-c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(30): error C2660: 'glVertex3f': function does not take 1 arguments
-  c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\include\gl.h(1472): note: see declaration of 'glVertex3f'
-c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(31): error C2065: 'v7': undeclared identifier
-c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(31): error C2660: 'glVertex3f': function does not take 1 arguments
-  c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\include\gl.h(1472): note: see declaration of 'glVertex3f'
-c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(41): error C2065: 'v7': undeclared identifier
-c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(42): error C2065: 'v7': undeclared identifier
-c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(42): error C2660: 'glVertex3f': function does not take 1 arguments
-  c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\include\gl.h(1472): note: see declaration of 'glVertex3f'
-c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(46): error C2065: 'v6': undeclared identifier
-c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(46): error C2660: 'glVertex3f': function does not take 1 arguments
-  c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\include\gl.h(1472): note: see declaration of 'glVertex3f'
-c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(49): error C2065: 'v6': undeclared identifier
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(26): error C3861: 'VertexNormal': identifier not found
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(26): error C2059: syntax error: ';'
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(28): error C3861: 'VertexNormal': identifier not found
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(29): error C3861: 'VertexNormal': identifier not found
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(30): error C3861: 'VertexNormal': identifier not found
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(31): error C3861: 'VertexNormal': identifier not found
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(32): error C3861: 'VertexNormal': identifier not found
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(33): error C3861: 'VertexNormal': identifier not found
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(37): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(37): error C2556: 'int glEnd(void)': overloaded function differs only by return type from 'void glEnd(void)'
+  c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\include\gl.h(1226): note: see declaration of 'glEnd'
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(37): error C2373: 'glEnd': redefinition; different type modifiers
+  c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\include\gl.h(1226): note: see declaration of 'glEnd'
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(38): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(38): error C2365: 'glBegin': redefinition; previous definition was 'function'
+  c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\include\gl.h(1156): note: see declaration of 'glBegin'
+c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\gem.cpp(38): error C2447: '{': missing function header (old-style formal list?)
   Grenade.cpp
-  HighResolutionTimer.cpp
-  LampPost.cpp
-  Lighting.cpp
-  Material.cpp
-  Md2Animation.cpp
-  MetalFloor.cpp
-  OpenAssetImporterMesh.cpp
-  Player.cpp
   Generating Code...
 c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\game.cpp(495): warning C4715: 'Game::ProcessEvents': not all control paths return a value
 c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\3dmaths.cpp(84): warning C4172: returning address of local variable or temporary: normal
 c:\users\dante\documents\uni\adv-games-tech-resit\adv-games-tech-resit\template\3dmaths.cpp(92): warning C4172: returning address of local variable or temporary: normal
-  Compiling...
-  PrimitiveObject.cpp
-  ShippingContainer.cpp
-  SkyBox.cpp
-  SpecialFX.cpp
-  SplashScreen.cpp
-  SupportBeam.cpp
-  Terrain.cpp
-  Tetrahedron.cpp
-  Text.cpp
-  Texture.cpp
-  Vector3f.cpp
-  Generating Code...
