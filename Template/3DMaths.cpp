@@ -92,18 +92,12 @@ GLfloat* Normal(CVector3f p, CVector3f q) {	// Method to calculate normals from 
 	return normal;
 }
 
-CVector3f TriangleNormal(CVector3f p, CVector3f q, CVector3f r){
+GLfloat* VertexNormal(CVector3f p, CVector3f q, CVector3f r){
 	CVector3f v1 = q - p;
 	CVector3f v2 = r - p;
 	CVector3f v3 = Cross(v1, v2);
 	v3.Normalise();
-	//GLfloat result[3] = { v3.x, v3.y, v3.z };
-	return v3;
-}
-
-GLfloat* VertexNormal(CVector3f p, CVector3f q, CVector3f r, CVector3f s){	// Calculates vertex normal of a single vertex
-	CVector3f v = Normalize(p + q + r + s);
-	GLfloat result[3] = { v.x, v.y, v.z };
+	GLfloat result[3] = { v3.x, v3.y, v3.z };
 	return result;
 }
 
