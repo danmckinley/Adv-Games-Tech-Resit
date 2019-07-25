@@ -78,10 +78,6 @@ void Game::Initialise()
 		m_lampPosts.push_back(lamp);
 		m_obstacles.push_back(lamp);
 	}
-	shared_ptr<CGem> gem = make_shared<CGem>();
-	gem->Initialise();
-	m_gems.push_back(gem);
-
 	/*
 	// If you plan to load a number of enemies and store them on an std::vector, it is best to use pointers, like this:
 	for (unsigned int i = 0; i < 5; i++) {
@@ -103,7 +99,7 @@ void Game::Update()
 		m_player.Update(m_dt);
 		m_enemy.Update(m_dt);
 		DetectCollisions();
-		if (m_grenades.size() > 0) {	// only handle grenade physics if there are any grenades
+		if (m_grenades.size() > 0) {
 			for (shared_ptr<CGrenade> g : m_grenades) {
 				g->Update(m_dt);
 			}
@@ -202,10 +198,6 @@ void Game::Render()
 		RenderShippingContainers();
 		RenderLampPosts();
 		RenderGrenades();
-
-		
-		m_gems[0]->SetPosition(CVector3f(27, 1, 20));
-		m_gems[0]->Render();
 
 		m_player.Render();
 		m_enemy.Face(m_player.GetPosition());

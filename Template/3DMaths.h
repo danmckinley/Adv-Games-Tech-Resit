@@ -18,15 +18,13 @@ bool EdgeBoxCollision(CVector3f & vCenter, CVector3f vPolygon[], int vertexCount
 CVector3f ClosestPointOnLine(CVector3f vA, CVector3f vB, CVector3f vPoint);
 GLfloat* Normal(GLfloat p[3], GLfloat q[3]);
 GLfloat * Normal(CVector3f p, CVector3f q);
-GLfloat * VertexNormal(CVector3f p, CVector3f q, CVector3f r);
 CVector3f Normal(CVector3f vPolygon[]);
 CVector3f Normalize(CVector3f vNormal);
 float Absolute(float num);
 float PlaneDistance(CVector3f Normal, CVector3f Point);								
 bool InsidePolygon(CVector3f intersection, CVector3f poly[], long verticeCount);	
 float Dot(CVector3f vec1, CVector3f vec2);											
-float Magnitude(CVector3f vNormal);
-CVector3f Cross(CVector3f p, CVector3f q);
+float Magnitude(CVector3f vNormal);													
 double AngleBetweenVectors(CVector3f vec1, CVector3f vec2);							
 float Distance(CVector3f vPoint1, CVector3f vPoint2);
 CVector3f GetCollisionOffset(CVector3f &vNormal, float radius, float distance);

@@ -32,7 +32,6 @@
 #include "LampPost.h"
 #include "Grenade.h"
 #include "SplashScreen.h"
-#include "Gem.h"
 
 
 
@@ -82,7 +81,6 @@ private:
 	std::vector<shared_ptr<CMetalFloor>> m_metalFloors;						// vector of all metalFloors
 	std::vector<shared_ptr<CShippingContainer>> m_shippingContainers;		// vector of all shippingContainers
 	std::vector<shared_ptr<CLampPost>> m_lampPosts;							// vector of all lampPosts
-	std::vector<shared_ptr<CGem>> m_gems;
 	std::vector<shared_ptr<CEntity>> m_entities;
 	std::vector<shared_ptr<CGrenade>> m_grenades;
 	
