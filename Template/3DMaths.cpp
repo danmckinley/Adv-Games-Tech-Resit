@@ -92,22 +92,6 @@ GLfloat* Normal(CVector3f p, CVector3f q) {	// Method to calculate normals from 
 	return normal;
 }
 
-CVector3f TriangleNormal(CVector3f p, CVector3f q, CVector3f r){
-	CVector3f v1 = q - p;
-	CVector3f v2 = r - p;
-	CVector3f v3 = Cross(v1, v2);
-	v3.Normalise();
-	//GLfloat result[3] = { v3.x, v3.y, v3.z };
-	return v3;
-}
-
-GLfloat* VertexNormal(CVector3f p, CVector3f q, CVector3f r, CVector3f s){	// Calculates vertex normal of a single vertex
-	CVector3f v = Normalize(p + q + r + s);
-	GLfloat result[3] = { v.x, v.y, v.z };
-	return result;
-}
-
-
 CVector3f Normal(CVector3f vPolygon[]) {	//method to calculate normals from an array of 3 CVectors, returning a CVector
 	CVector3f vVector1 = vPolygon[2] - vPolygon[0];
 	CVector3f vVector2 = vPolygon[1] - vPolygon[0];
@@ -202,12 +186,5 @@ float Dot(CVector3f vVector1, CVector3f vVector2) {
 
 float Magnitude(CVector3f vNormal) {
 	return (float)sqrt((vNormal.x * vNormal.x) + (vNormal.y * vNormal.y) + (vNormal.z * vNormal.z));
-}
-
-CVector3f Cross(CVector3f p, CVector3f q) {
-	float a = p.y * q.z - p.z * q.y;
-	float b = p.z * q.x - p.x * q.z;
-	float c = p.x * q.y - p.y * q.x;
-	return CVector3f(a, b, c);
 }
 
