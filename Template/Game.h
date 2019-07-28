@@ -31,6 +31,7 @@
 #include "ShippingContainer.h"
 #include "LampPost.h"
 #include "Grenade.h"
+#include "Gem.h"
 #include "SplashScreen.h"
 
 
@@ -83,6 +84,7 @@ private:
 	std::vector<shared_ptr<CLampPost>> m_lampPosts;							// vector of all lampPosts
 	std::vector<shared_ptr<CEntity>> m_entities;
 	std::vector<shared_ptr<CGrenade>> m_grenades;
+	std::vector<shared_ptr<CGem>> m_gems;
 	
 public:
 	~Game();
