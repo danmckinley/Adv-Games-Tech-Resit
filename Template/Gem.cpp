@@ -9,6 +9,7 @@ CGem::CGem() {
 	v4 = CVector3f(-0.5f, 1.0f, 0.5f);
 
 	v5 = CVector3f(0, 2, 0);	// bottom
+	m_rotationAngle = 0;
 }
 
 void CGem::Initialise() {
@@ -44,5 +45,15 @@ void CGem::Render() {
 		glPopMatrix();
 	}
 	postRender();
+	Rotate();
+}
 
+void CGem::Rotate(){
+	if (m_rotationAngle < 360) {
+		m_rotationAngle += 2;
+	}
+	else {
+		m_rotationAngle = 0;
+	}
+	SetRotation(m_rotationAngle, 0, 1, 0);
 }
