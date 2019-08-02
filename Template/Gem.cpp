@@ -21,7 +21,8 @@ void CGem::Render() {
 	preRender();
 	glPushMatrix(); {
 		ApplySort();
-		glColor3f(0.5, 0.5, 1.0);
+		glBlendFunc(GL_ONE, GL_ONE); // enables alpha blending on textured surface (https://www.opengl.org/archives/resources/faq/technical/transparency.htm @15.080)
+		glColor4f(0.5, 0.5, 1.0, 0.5);
 		glBegin(GL_TRIANGLE_FAN); { // Renders bottom half of octahedron
 			glNormal3fv(Normal(v4, v2)); glTexCoord2f(0.5, 1);		glVertex3f(v0.x, v0.y, v0.z);
 			glNormal3fv(Normal(v2, v4)); glTexCoord2f(0, 0.5);		glVertex3f(v1.x, v1.y, v1.z);

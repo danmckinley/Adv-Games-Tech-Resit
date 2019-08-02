@@ -195,6 +195,7 @@ void Game::Render()
 		glPopMatrix();
 		glEnable(GL_LIGHTING);
 
+		// RENDER ALL OPAQUE (NON-TRANSPARENT) OBJECTS
 		// Render the terrain
 		m_terrain.Render();
 
@@ -214,6 +215,7 @@ void Game::Render()
 		}
 		glPopMatrix();
 
+		// RENDER TRANSPARENT OBJECTS
 		glPushMatrix(); {
 			m_gems[0]->SetPosition(CVector3f(27, 1, 20));
 			m_gems[0]->Render();
