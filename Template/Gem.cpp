@@ -50,7 +50,7 @@ void CGem::Render() {
 
 void CGem::Rotate(){
 	if (m_rotationAngle < 360) {
-		m_rotationAngle += 2;
+		m_rotationAngle += 0.5;
 	}
 	else {
 		m_rotationAngle = 0;
