@@ -25,6 +25,7 @@ Game::Game()
 {
 	m_introScreen = true;
 	m_dt = 0.0f;
+	m_numberOfVerts = 0;
 	//m_animation = 0;
 }
 
@@ -60,30 +61,46 @@ void Game::Initialise()
 
 	m_lightPos = CVector3f(30, 5, 30);
 
+	// CREATE OBSTACLES
 	for (int i = 0; i < 5; i++) {
 		shared_ptr<CMetalFloor> floor = make_shared<CMetalFloor>();
 		floor->Initialise();
 		m_metalFloors.push_back(floor);
+		m_numberOfVerts += floor->GetNumberOfVerts();
 		m_obstacles.push_back(floor);
 	}
 	for (int i = 0; i < 2; i++) {
 		shared_ptr<CShippingContainer> container = make_shared<CShippingContainer>();
 		container->Initialise();
 		m_shippingContainers.push_back(container);
+		m_numberOfVerts += container->GetNumberOfVerts();
 		m_obstacles.push_back(container);
 	}
 	for (int i = 0; i < 2; i++) {
 		shared_ptr<CLampPost> lamp = make_shared<CLampPost>();
 		lamp->Initialise();
 		m_lampPosts.push_back(lamp);
+		m_numberOfVerts += lamp->GetNumberOfVerts();
 		m_obstacles.push_back(lamp);
 	}
-
 	shared_ptr<CGem> gem = make_shared<CGem>();
 	gem->Initialise();
 	m_gems.push_back(gem);
-	/*
-	// If you plan to load a number of enemies and store them on an std::vector, it is best to use pointers, like this:
+
+	// Populate the world data (m_vWorld) with vertices
+	m_vWorld = new CVector3f[m_numberOfVerts];
+	int index = 0;
+	// gets the polygon data for each obstacle and stores it in the world data array
+	for (shared_ptr<CPrimitiveObject> o : m_obstacles) {
+		// reads one vertex at a time
+		for (int i = 0; i < o->GetNumberOfVerts(); i++) {
+			// access the vertex at i and store in world data
+			m_vWorld[index] = o->GetPolygonData()[i];
+			index++;
+		}
+	}
+
+	/* // If you plan to load a number of enemies and store them on an std::vector, it is best to use pointers, like this:
 	for (unsigned int i = 0; i < 5; i++) {
 	   m_enemies.push_back(new CMD2Model);
 	   m_enemies[i]->Load(...);

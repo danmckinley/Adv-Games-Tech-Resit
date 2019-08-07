@@ -23,8 +23,6 @@ void CEntity::HandlePhysics(float dt){
 	float yPlane = 0.0f;
 	if (GroundCollisionDetection(yPlane)) {
 		GroundCollisionResponse();
-	}
-	if (m_velocity.y == 0) {
 		onGround = true;
 	}
 }

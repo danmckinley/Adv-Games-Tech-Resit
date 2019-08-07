@@ -34,6 +34,8 @@ public:
 	CVector3f ToWorldCoordinates(CVector3f vec);		// translates local coordinates to world coordinates
 	bool CheckCollision(CBoundingBox bbox);				// used to check for collisions in Game.cpp
 	CVector3f GetOffset();				// returns the collision offset vector
+	CVector3f* GetPolygonData();
+	int GetNumberOfVerts();
 	
 	
 protected:		//protected so subclasses can access these variables

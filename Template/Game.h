@@ -85,6 +85,9 @@ private:
 	std::vector<shared_ptr<CEntity>> m_entities;
 	std::vector<shared_ptr<CGrenade>> m_grenades;
 	std::vector<shared_ptr<CGem>> m_gems;
+
+	int m_numberOfVerts;
+	CVector3f *m_vWorld;
 	
 public:
 	~Game();

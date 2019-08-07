@@ -81,7 +81,9 @@ void CPrimitiveObject::postRender() {
 
 bool CPrimitiveObject::CheckCollision(CBoundingBox bbox) {
 	for (int i = 0; i < m_numOfVerts; i += 3) {
+		// Store the current triangle we're testing
 		CVector3f vTriangle[3] = { m_polygons[i], m_polygons[i + 1], m_polygons[i + 2] };
+		// ++ Finding the bbox's classification
 		CVector3f vNormal = Normal(vTriangle);
 		float distance = 0.0f;
 		float largerAxis = bbox.GetWidth();
@@ -92,14 +94,7 @@ bool CPrimitiveObject::CheckCollision(CBoundingBox bbox) {
 		} else if (vNormal.z > vNormal.x) {
 			largerAxis = bbox.GetDepth();
 		}
-		/*
-		if (bbox.GetWidth() > bbox.GetDepth()) {
-			largerAxis = bbox.GetWidth();
-		}
-		else {
-			largerAxis = bbox.GetDepth();
-		}
-		*/
+		
 		int classification = ClassifyBox(bbox.GetCenter(), vNormal, vTriangle[0],
 			largerAxis, distance);
 		if (classification == INTERSECTS) {
@@ -117,6 +112,16 @@ bool CPrimitiveObject::CheckCollision(CBoundingBox bbox) {
 
 CVector3f CPrimitiveObject::GetOffset() {
 	return vOffset;
+}
+
+CVector3f* CPrimitiveObject::GetPolygonData()
+{
+	return m_polygons;
+}
+
+int CPrimitiveObject::GetNumberOfVerts()
+{
+	return m_numOfVerts;
 }
 
 ////////////////////////////// PRIMITIVE CUBOID METHODS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -180,6 +185,7 @@ CPrimitiveOctahedron::CPrimitiveOctahedron()
 
 void CPrimitiveOctahedron::SetPolygonsToWorldCoords()
 {
+	// creates a copy of the vertices at their appropriate world coordinates for the purposes of map data
 	if (!polygonsSetToWorldCoords) {
 		m_polygons[0] = ToWorldCoordinates(v0);//first triangle
 		m_polygons[1] = ToWorldCoordinates(v2);
