@@ -20,10 +20,9 @@ void CEntity::HandlePhysics(float dt){
 	}
 	m_contactTime += dt;
 
-	float yPlane = 0.0f;
+	float yPlane = 0.0f;	// is set to same y value as the ground
 	if (GroundCollisionDetection(yPlane)) {
 		GroundCollisionResponse();
-		onGround = true;
 	}
 }
 
@@ -35,17 +34,46 @@ bool CEntity::GroundCollisionDetection(float yPlane) {
 }
 
 void CEntity::GroundCollisionResponse() {
-	float convergenceThreshold = 12.5f;
+	float convergenceThreshold = 12.5f; // value to determine how hard must be falling to bounce
+	onGround = true;
 	m_velocity = m_velocity * m_coefficientOfRestitution;
 	if (m_velocity.Length() > convergenceThreshold) {
-		// The ball has bounced!  Implement a bounce by flipping the y velocity.
+		// The entity has bounced!  Implement a bounce by flipping the y velocity.
 		m_velocity = CVector3f(m_velocity.x, -m_velocity.y, m_velocity.z);
+		onGround = false; // if the player bounces, set onGround to false
 	}
 	else {
 		// Velocity of the ball is below a threshold.  Stop the ball. 
 		m_velocity = CVector3f(0.0f, 0.0f, 0.0f);
 		m_acceleration = CVector3f(0.0f, 0.0f, 0.0f);
 		m_position = CVector3f(m_position.x, m_position.y, m_position.z);
+	}
+}
+
+void CEntity::CheckWorldCollision(CVector3f *pVertices, int numOfVerts)
+{
+	for (int i = 0; i < numOfVerts; i += 3) {
+		// Store the current triangle we're testing
+		CVector3f vTriangle[3] = { pVertices[i], pVertices[i + 1], pVertices[i + 2] };
+		// ++ Finding the bbox's classification
+		CVector3f vNormal = Normal(vTriangle);
+		float distance = 0.0f;
+		float boxWidth = m_bbox.GetWidth();
+
+		int classification = ClassifyBox(m_bbox.GetCenter(), vNormal, vTriangle[0],
+			boxWidth, distance);
+		if (classification == INTERSECTS) {
+			CVector3f vOffset = vNormal * distance;
+			CVector3f vIntersection = m_bbox.GetCenter() - vOffset;
+			// this is what actually determines whether or not there is a collision
+			if (InsidePolygon(vIntersection, vTriangle, 3) || EdgeBoxCollision(m_bbox.GetCenter(), vTriangle, 3, boxWidth / 2)) {
+				if (m_bbox.GetCenter().y > vTriangle[0].y) {
+					GroundCollisionResponse();
+				}
+				vOffset = GetCollisionOffset(vNormal, boxWidth, distance);
+				m_position = m_position + vOffset;
+			}
+		}
 	}
 }
 

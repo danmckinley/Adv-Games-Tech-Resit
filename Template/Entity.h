@@ -1,6 +1,7 @@
 #pragma once
 
 #include <windows.h>
+#include "3DMaths.h"
 #include "Vector3f.h"
 #include "Camera.h"
 #include "MD2Animation.h"
@@ -22,6 +23,7 @@ public:
 	bool onGround = true;
 	bool GroundCollisionDetection(float yPlane);
 	void GroundCollisionResponse();
+	void CheckWorldCollision(CVector3f *pVertices, int numOfVerts);
 	void Shoot(std::vector<std::shared_ptr<CGrenade>>& grenadelist, Camera & camera);
 	//void Shoot(std::vector<std::shared_ptr<CGrenade>>& grenadelist);
 	void SetPosition(CVector3f position);

@@ -9,6 +9,7 @@ CShippingContainer::CShippingContainer(){
 	v5 = CVector3f(2, 4, -5);
 	v6 = CVector3f(2, 4, 5);
 	v7 = CVector3f(-2, 4, 5);
+	SetPolygonsToWorldCoords();
 }
 
 void CShippingContainer::Initialise() {
@@ -17,7 +18,6 @@ void CShippingContainer::Initialise() {
 
 
 void CShippingContainer::Render() {
-	SetPolygonsToWorldCoords();
 	preRender();
 	glPushMatrix(); {
 		ApplySort();

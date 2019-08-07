@@ -87,6 +87,8 @@ void Game::Initialise()
 	gem->Initialise();
 	m_gems.push_back(gem);
 
+	SetUpStaticObjects(); // positions all the obstacle objects in the world
+
 	// Populate the world data (m_vWorld) with vertices
 	m_vWorld = new CVector3f[m_numberOfVerts];
 	int index = 0;
@@ -95,7 +97,10 @@ void Game::Initialise()
 		// reads one vertex at a time
 		for (int i = 0; i < o->GetNumberOfVerts(); i++) {
 			// access the vertex at i and store in world data
-			m_vWorld[index] = o->GetPolygonData()[i];
+			CVector3f vertex = o->GetVertexAtIndex(i);
+			m_vWorld[index].x = vertex.x;
+			m_vWorld[index].y = vertex.y;
+			m_vWorld[index].z = vertex.z;
 			index++;
 		}
 	}
@@ -136,8 +141,12 @@ void Game::Update()
 void Game::DetectCollisions()
 {
 	if (m_enemy.GetBBox().Collision(m_player.GetBBox())) {
-		//m_player.SetPosition();		//TODO - Make better collision response
+		//TODO - Make better collision response
 	}
+
+	m_player.CheckWorldCollision(m_vWorld, m_numberOfVerts);
+
+	/*// OLD COLLISION
 	for(shared_ptr<CPrimitiveObject> o : m_obstacles) {
 		if (o->CheckCollision(m_player.GetBBox())) {
 			m_player.SetPosition(m_player.GetPosition() + o->GetOffset());
@@ -146,6 +155,7 @@ void Game::DetectCollisions()
 			m_enemy.SetPosition(m_enemy.GetPosition() + o->GetOffset());
 		}
 	}
+	*/
 }
 
 void Game::SetUpUI() {
@@ -232,7 +242,7 @@ void Game::Render()
 		}
 		glPopMatrix();
 
-		// RENDER TRANSPARENT OBJECTS
+		// RENDER TRANSPARENT OBJECTS LAST
 		glPushMatrix(); {
 			m_gems[0]->SetPosition(CVector3f(27, 1, 20));
 			m_gems[0]->Render();
@@ -250,69 +260,50 @@ void Game::RenderGrenades() {
 	}
 }
 
+// Sets up all static objects in their positions
+void Game::SetUpStaticObjects() { 
+	//metal floors
+	m_metalFloors[0]->SetPosition(CVector3f(30, 1, 30));
+	m_metalFloors[0]->SetRotation(90, 1, 0, 0);
+	m_metalFloors[1]->SetPosition(CVector3f(35, 1, 30));
+	m_metalFloors[1]->SetScaling(1.25, 1.25, 1.25);
+	m_metalFloors[2]->SetPosition(CVector3f(40, 1, 30));
+	m_metalFloors[2]->SetScaling(1.5, 1.5, 1.5);
+	m_metalFloors[3]->SetPosition(CVector3f(50, 3, 20));
+	m_metalFloors[4]->SetPosition(CVector3f(50, 2, 10));
+	//shipping containers
+	m_shippingContainers[0]->SetPosition(CVector3f(20, 0, 20));
+	m_shippingContainers[0]->SetRotation(45, 0, 1, 0);
+	m_shippingContainers[1]->SetPosition(CVector3f(10, 0, 0));
+	//lamp posts
+	m_lampPosts[0]->SetPosition(CVector3f(30, 0, 20));
+}
+
 void Game::RenderMetalFloors()			// Method responsible for rendering all of the metalFloors stored in the m_metalFloors vector
 {
-	glPushMatrix(); {
-		m_metalFloors[0]->SetPosition(CVector3f(30, 1, 30));
-		m_metalFloors[0]->SetRotation(90, 1, 0, 0);
 		m_metalFloors[0]->Render();
-	}
-	glPopMatrix();
-	glPushMatrix(); {
-		m_metalFloors[1]->SetPosition(CVector3f(35, 1, 30));
-		m_metalFloors[1]->SetScaling(1.25, 1.25, 1.25);
 		m_metalFloors[1]->Render();
-	}
-	glPopMatrix();
-	glPushMatrix(); {
-		m_metalFloors[2]->SetPosition(CVector3f(40, 1, 30));
-		m_metalFloors[2]->SetScaling(1.5, 1.5, 1.5);
 		m_metalFloors[2]->Render();
-	}
-	glPopMatrix();
-	
-	glPushMatrix(); {
-		m_metalFloors[3]->SetPosition(CVector3f(50, 3, 20));
 		m_metalFloors[3]->Render();
-	}
-	glPopMatrix();
-	
-	glPushMatrix(); {
-		m_metalFloors[4]->SetPosition(CVector3f(50, 2, 10));
-		//glRotatef(45, 1, 0, 1);
 		m_metalFloors[4]->Render();
-	}
-	glPopMatrix();
 }
 
 void Game::RenderShippingContainers() {
-	
-	glPushMatrix(); {
-		m_shippingContainers[0]->SetPosition(CVector3f(20,0,20)); 
-		m_shippingContainers[0]->SetRotation(45,0,1,0); 
 		m_shippingContainers[0]->Render();
-	}
-	glPopMatrix();
-	glPushMatrix(); {
-		m_shippingContainers[1]->SetPosition(CVector3f(10, 0, 0));	
 		m_shippingContainers[1]->Render();
-	}
-	glPopMatrix();
 }
 
 void Game::RenderLampPosts() {
-	glPushMatrix(); {
-		m_lampPosts[0]->SetPosition(CVector3f(30, 0, 20));
-		m_lampPosts[0]->Render();
-	}
-	glPopMatrix();
-	m_lampLightPos = m_lampPosts[0]->GetLightPosition();
-	m_lighting.SetLight(m_lampLightPos);		//Here I was experimenting with a point light
-	glDisable(GL_LIGHTING);
-	glColor3f(1, 1, 0);
-	glPushMatrix(); {	//sphere for white light
-		glTranslatef(m_lampLightPos.x, m_lampLightPos.y, m_lampLightPos.z);
-		glutSolidSphere(0.5, 25, 25);
+	m_lampPosts[0]->Render();
+	glPopMatrix(); {
+		m_lampLightPos = m_lampPosts[0]->GetLightPosition();
+		m_lighting.SetLight(m_lampLightPos);		//Here I was experimenting with a point light
+		glDisable(GL_LIGHTING);
+		glColor3f(1, 1, 0);
+		glPushMatrix(); {	//sphere for white light
+			glTranslatef(m_lampLightPos.x, m_lampLightPos.y, m_lampLightPos.z);
+			glutSolidSphere(0.5, 25, 25);
+		}
 	}
 	glPopMatrix();
 	glEnable(GL_LIGHTING);

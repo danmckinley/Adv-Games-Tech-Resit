@@ -34,16 +34,19 @@ public:
 	CVector3f ToWorldCoordinates(CVector3f vec);		// translates local coordinates to world coordinates
 	bool CheckCollision(CBoundingBox bbox);				// used to check for collisions in Game.cpp
 	CVector3f GetOffset();				// returns the collision offset vector
-	CVector3f* GetPolygonData();
+	//CVector3f* GetPolygonData();
+	CVector3f GetVertexAtIndex(int index);
 	int GetNumberOfVerts();
 	
+	CVector3f *m_polygons;				// array of polygons for the primitive object
+	int m_numOfVerts = 0;				// variable to store the number of vertices for a given shape
+
 	
 protected:		//protected so subclasses can access these variables
 	UINT m_textureID;	
 	CVector3f m_position;				// vector to track the object's position in the world
 	CTexture texture;
-	CVector3f *m_polygons = NULL;		// array of polygons for the primitive object
-	int m_numOfVerts = 0;				// variable to store the number of vertices for a given shape
+
 	bool polygonsSetToWorldCoords = false;	//bool to check if the polygons have been transformed to their world coordinates
 private:
 	CVector3f vOffset;					// vector to offset the colliding entity (such as the player) by

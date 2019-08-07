@@ -10,6 +10,7 @@ CLampPost::CLampPost() {
 	v5 = CVector3f(0.25f, 5.0f, -0.25f);
 	v6 = CVector3f(0.25f, 5.0f, 0.25f);
 	v7 = CVector3f(-0.25f, 5.0f, 0.25f);
+	SetPolygonsToWorldCoords();
 }
 
 void CLampPost::Initialise() {
@@ -17,7 +18,6 @@ void CLampPost::Initialise() {
 }
 
 void CLampPost::Render() {
-	SetPolygonsToWorldCoords();
 	preRender();
 	glPushMatrix(); {
 		ApplySort();

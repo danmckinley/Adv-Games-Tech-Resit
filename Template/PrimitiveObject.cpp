@@ -114,9 +114,17 @@ CVector3f CPrimitiveObject::GetOffset() {
 	return vOffset;
 }
 
+/*
 CVector3f* CPrimitiveObject::GetPolygonData()
 {
 	return m_polygons;
+}
+*/
+
+CVector3f CPrimitiveObject::GetVertexAtIndex(int index) {
+	CVector3f vertex = m_polygons[index];
+	vertex = ToWorldCoordinates(vertex);
+	return vertex;
 }
 
 int CPrimitiveObject::GetNumberOfVerts()
@@ -158,7 +166,6 @@ void CPrimitiveCuboid::SetPolygonsToWorldCoords() {
 		m_polygons[21] = ToWorldCoordinates(v1);//next triangle
 		m_polygons[22] = ToWorldCoordinates(v6);
 		m_polygons[23] = ToWorldCoordinates(v5);
-
 		m_polygons[24] = ToWorldCoordinates(v4);//next triangle
 		m_polygons[25] = ToWorldCoordinates(v5);
 		m_polygons[26] = ToWorldCoordinates(v6);

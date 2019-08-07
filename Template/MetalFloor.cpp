@@ -14,6 +14,7 @@ CMetalFloor::CMetalFloor(){
 	v5 = CVector3f(1.5f, 0.33f, -1.5f);
 	v6 = CVector3f(1.5f, 0.33f, 1.5f);
 	v7 = CVector3f(-1.5f, 0.33f, 1.5f);
+	SetPolygonsToWorldCoords();
 }
 
 void CMetalFloor::Initialise() {
@@ -21,7 +22,6 @@ void CMetalFloor::Initialise() {
 }
 
 void CMetalFloor::Render() {
-	SetPolygonsToWorldCoords();
 	preRender();
 	glPushMatrix(); {
 		ApplySort();

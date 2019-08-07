@@ -52,6 +52,8 @@ private:
 	void RenderLampPosts();
 	void GameLoop();		// The game loop
 
+	void SetUpStaticObjects();	// Sets up all static objects in their positions
+
 	// Game objects
 	Camera m_camera;								// The camera
 	CHighResolutionTimer m_highResolutionTimer;		// A timer for measuring the time between frames

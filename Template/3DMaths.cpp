@@ -1,15 +1,15 @@
 #include "3DMaths.h"
 
 int ClassifyBox(CVector3f &center, CVector3f &normal, CVector3f &point,
-	float largerAxis, float &distance) {
+	float boxWidth, float &distance) {
 	// determines if the box is infront, behind, or intersecting the polygon
 	float d = (float)PlaneDistance(normal, point);
 	distance = (normal.x * center.x + normal.y * center.y + normal.z * center.z + d);
 
-	if (Absolute(distance) < largerAxis / 2) {
+	if (Absolute(distance) < boxWidth / 2) {
 		return INTERSECTS;
 	}
-	else if (distance >= largerAxis / 2) {
+	else if (distance >= boxWidth / 2) {
 		return FRONT;
 	}
 	return BEHIND;
