@@ -1,16 +1,32 @@
 #include "3DMaths.h"
 
+/////	This tells if a sphere is BEHIND, in FRONT, or INTERSECTS a plane, also it's distance
 int ClassifyBox(CVector3f &center, CVector3f &normal, CVector3f &point,
-	float boxWidth, float &distance) {
-	// determines if the box is infront, behind, or intersecting the polygon
+	float boxWidth, float boxHeight, float &distance) {
+	
+	// First we need to find the distance our polygon plane is from the origin.
 	float d = (float)PlaneDistance(normal, point);
+	// Here we use the famous distance formula to find the distance the center point of the sphere is from the polygon's plane. 
 	distance = (normal.x * center.x + normal.y * center.y + normal.z * center.z + d);
-
-	if (Absolute(distance) < boxWidth / 2) {
-		return INTERSECTS;
+	//|| (Absolute(distance) < boxHeight / 2)		// || (distance >= boxHeight / 2)
+	// If the absolute value of the distance we just found is less than the width, OR HEIGHT?? the box intersected the plane.
+	CVector3f direction = (center - normal);
+	direction.Normalise();
+	if (direction.y == 1.0f) {
+		if (Absolute(distance) < boxHeight / 2) {
+			return INTERSECTSV;
+		}
+		else if (distance >= boxHeight / 2) {
+			return FRONT;
+		}
 	}
-	else if (distance >= boxWidth / 2) {
-		return FRONT;
+	else {
+		if (Absolute(distance) < boxWidth / 2) {
+			return INTERSECTSH;
+		}
+		else if (distance >= boxWidth / 2) {
+			return FRONT;
+		}
 	}
 	return BEHIND;
 }

@@ -79,7 +79,9 @@ void CPrimitiveObject::postRender() {
 	glDisable(GL_BLEND);
 }
 
+/*
 bool CPrimitiveObject::CheckCollision(CBoundingBox bbox) {
+	
 	for (int i = 0; i < m_numOfVerts; i += 3) {
 		// Store the current triangle we're testing
 		CVector3f vTriangle[3] = { m_polygons[i], m_polygons[i + 1], m_polygons[i + 2] };
@@ -109,10 +111,13 @@ bool CPrimitiveObject::CheckCollision(CBoundingBox bbox) {
 	}
 	return false;
 }
+*/
 
+/*
 CVector3f CPrimitiveObject::GetOffset() {
 	return vOffset;
 }
+*/
 
 /*
 CVector3f* CPrimitiveObject::GetPolygonData()
