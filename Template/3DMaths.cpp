@@ -9,10 +9,8 @@ int ClassifyBox(CVector3f &center, CVector3f &normal, CVector3f &point,
 	// Here we use the famous distance formula to find the distance the center point of the sphere is from the polygon's plane. 
 	distance = (normal.x * center.x + normal.y * center.y + normal.z * center.z + d);
 	//|| (Absolute(distance) < boxHeight / 2)		// || (distance >= boxHeight / 2)
-	// If the absolute value of the distance we just found is less than the width, OR HEIGHT?? the box intersected the plane.
-	CVector3f direction = (center - normal);
-	direction.Normalise();
-	if (direction.y == 1.0f) {
+	// If the absolute value of the distance we just found is less than the width, OR HEIGHT?? the box intersected the plane
+	/*
 		if (Absolute(distance) < boxHeight / 2) {
 			return INTERSECTSV;
 		}
@@ -20,9 +18,12 @@ int ClassifyBox(CVector3f &center, CVector3f &normal, CVector3f &point,
 			return FRONT;
 		}
 	}
-	else {
+	else */{
 		if (Absolute(distance) < boxWidth / 2) {
-			return INTERSECTSH;
+			return INTERSECTS;
+		}
+		else if (Absolute(distance) < boxHeight / 2) {
+			return INTERSECTS;
 		}
 		else if (distance >= boxWidth / 2) {
 			return FRONT;
@@ -31,7 +32,7 @@ int ClassifyBox(CVector3f &center, CVector3f &normal, CVector3f &point,
 	return BEHIND;
 }
 
-bool EdgeBoxCollision(CVector3f &vCenter, CVector3f vPolygon[], int vertexCount, float radius) {
+bool EdgeBoxCollision(CVector3f &vCenter, CVector3f vPolygon[], int vertexCount, float width, float height) {
 	CVector3f vPoint;
 
 	// This function takes in the sphere's center, the polygon's vertices, the vertex count
@@ -48,8 +49,12 @@ bool EdgeBoxCollision(CVector3f &vCenter, CVector3f vPolygon[], int vertexCount,
 		float distance = Distance(vPoint, vCenter);
 
 		// If the distance is less than the radius, there must be a collision so return true
-		if (distance < radius)
+		if (distance < width) {
 			return true;
+		}
+		else if (distance < height) {
+			return true;
+		}
 	}
 
 	// The was no intersection of the sphere and the edges of the polygon
@@ -182,15 +187,31 @@ float Distance(CVector3f vPoint1, CVector3f vPoint2)
 	return (float)distance;
 }
 
-CVector3f GetCollisionOffset(CVector3f & vNormal, float radius, float distance)
+CVector3f GetCollisionOffset(CVector3f & vNormal, float boxWidth, float boxHeight, float distance)
 {
 	CVector3f vOffset = CVector3f(0, 0, 0);
 	if (distance > 0) {
-		float distanceOver = radius/2 - distance;
+		float distanceOver = 0;
+		float distanceOverH = boxWidth/2 - distance; // horizontal
+		float distanceOverV = boxHeight / 2 - distance; //vertical
+		if (distanceOverH > distanceOverV) {
+			distanceOver = distanceOverH;
+		}
+		else {
+			distanceOver = distanceOverV;
+		}
 		vOffset = vNormal * distanceOver;
 	}
 	else {
-		float distanceOver = radius/2 + distance;
+		float distanceOver = 0;
+		float distanceOverH = boxWidth/2 + distance;
+		float distanceOverV = boxHeight/2 + distance;
+		if (distanceOverH > distanceOverV) {
+			distanceOver = distanceOverH;
+		}
+		else {
+			distanceOver = distanceOverV;
+		}
 		vOffset = vNormal * -distanceOver;
 	}
 	return vOffset;

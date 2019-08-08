@@ -260,7 +260,7 @@ void Game::RenderGrenades() {
 	}
 }
 
-// Sets up all static objects in their positions
+// Sets up all static objects in their positions (in world Coordinates)
 void Game::SetUpStaticObjects() { 
 	//metal floors
 	m_metalFloors[0]->SetPosition(CVector3f(30, 1, 30));

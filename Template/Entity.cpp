@@ -34,9 +34,13 @@ bool CEntity::GroundCollisionDetection(float yPlane) {
 }
 
 void CEntity::GroundCollisionResponse() {
-	float convergenceThreshold = 12.5f; // value to determine how hard must be falling to bounce
+	// float convergenceThreshold = 12.5f; // value to determine how hard must be falling to bounce
 	onGround = true;
 	m_velocity = m_velocity * m_coefficientOfRestitution;
+	m_velocity = CVector3f(0.0f, 0.0f, 0.0f);
+	m_acceleration = CVector3f(0.0f, -9.8f, 0.0f);
+	m_position = CVector3f(m_position.x, m_position.y, m_position.z);
+	/*	// turnt off bouncing 
 	if (m_velocity.Length() > convergenceThreshold) {
 		// The entity has bounced!  Implement a bounce by flipping the y velocity.
 		m_velocity = CVector3f(m_velocity.x, -m_velocity.y, m_velocity.z);
@@ -48,6 +52,7 @@ void CEntity::GroundCollisionResponse() {
 		m_acceleration = CVector3f(0.0f, 0.0f, 0.0f);
 		m_position = CVector3f(m_position.x, m_position.y, m_position.z);
 	}
+	*/
 }
 
 void CEntity::CheckWorldCollision(CVector3f *pVertices, int numOfVerts)
@@ -63,30 +68,19 @@ void CEntity::CheckWorldCollision(CVector3f *pVertices, int numOfVerts)
 
 		int classification = ClassifyBox(m_bbox.GetCenter(), vNormal, vTriangle[0],
 			boxWidth, boxHeight, distance);
-		if (classification == INTERSECTSH) {	// if intersection is horizontal
+		if (classification == INTERSECTS) {
 			CVector3f vOffset = vNormal * distance;
 			CVector3f vIntersection = m_bbox.GetCenter() - vOffset;
 			// this is what actually determines whether or not there is a collision
-			if (InsidePolygon(vIntersection, vTriangle, 3) || EdgeBoxCollision(m_bbox.GetCenter(), vTriangle, 3, boxWidth / 2)) {
-				if (m_bbox.GetCenter().y > vTriangle[0].y) {
+			if (InsidePolygon(vIntersection, vTriangle, 3) || EdgeBoxCollision(m_bbox.GetCenter(), vTriangle, 3, boxWidth/2, boxHeight/2)) {
+				if (vNormal.y >= 0.75) {
 					GroundCollisionResponse();
 				}
-				vOffset = GetCollisionOffset(vNormal, boxWidth, distance);
+				vOffset = GetCollisionOffset(vNormal, boxWidth, boxHeight, distance);
 				m_position = m_position + vOffset;
 			}
 		}
-		else if (classification == INTERSECTSV) {	// if intersection is vertical
-			CVector3f vOffset = vNormal * distance;
-			CVector3f vIntersection = m_bbox.GetCenter() - vOffset;
-			// this is what actually determines whether or not there is a collision
-			if (InsidePolygon(vIntersection, vTriangle, 3) || EdgeBoxCollision(m_bbox.GetCenter(), vTriangle, 3, boxWidth / 2)) {
-				if (m_bbox.GetCenter().y > vTriangle[0].y) {
-					GroundCollisionResponse();
-				}
-				vOffset = GetCollisionOffset(vNormal, boxHeight, distance);
-				m_position = m_position + vOffset;
-			}
-		}
+		
 	}
 }
 

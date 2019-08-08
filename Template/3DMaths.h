@@ -6,16 +6,15 @@
 #include ".\include\gl.h"
 #include "Vector3f.h"
 #define BEHIND			0
-#define INTERSECTSH		1	// intersects horizontally
-#define INTERSECTSV		2	// intersects vertically
-#define FRONT			3
+#define INTERSECTS		1
+#define FRONT			2
 
 // this class holds all of the methods used to calculate the polygon-based collision
 // these methods start being called in CPrimitiveObject::CheckCollisions
 // I got these methods from the 
 
 int ClassifyBox(CVector3f & center, CVector3f & normal, CVector3f & point, float boxWidth, float boxHeight, float & distance);
-bool EdgeBoxCollision(CVector3f & vCenter, CVector3f vPolygon[], int vertexCount, float radius);
+bool EdgeBoxCollision(CVector3f & vCenter, CVector3f vPolygon[], int vertexCount, float width, float height);
 CVector3f ClosestPointOnLine(CVector3f vA, CVector3f vB, CVector3f vPoint);
 GLfloat* Normal(GLfloat p[3], GLfloat q[3]);
 GLfloat * Normal(CVector3f p, CVector3f q);
@@ -28,7 +27,7 @@ float Dot(CVector3f vec1, CVector3f vec2);
 float Magnitude(CVector3f vNormal);													
 double AngleBetweenVectors(CVector3f vec1, CVector3f vec2);							
 float Distance(CVector3f vPoint1, CVector3f vPoint2);
-CVector3f GetCollisionOffset(CVector3f &vNormal, float radius, float distance);
+CVector3f GetCollisionOffset(CVector3f &vNormal, float boxWidth, float boxHeight, float distance);
 
 
 

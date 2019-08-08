@@ -88,7 +88,7 @@ void CPlayer::Jump() {
 		CVector3f direction = CVector3f(0, 1, 0);
 		direction.Normalise();
 		CVector3f force = 27500.0f * direction;
-		m_instantaneousAcceleration = force / 60;
+		m_instantaneousAcceleration = force / 5;	// / 60; // original
 	}
 }
 
