@@ -72,7 +72,7 @@ void CEntity::CheckWorldCollision(CVector3f *pVertices, int numOfVerts)
 			CVector3f vOffset = vNormal * distance;
 			CVector3f vIntersection = m_bbox.GetCenter() - vOffset;
 			// this is what actually determines whether or not there is a collision
-			if (InsidePolygon(vIntersection, vTriangle, 3) || EdgeBoxCollision(m_bbox.GetCenter(), vTriangle, 3, boxWidth/2, boxHeight/2)) {
+			if (InsidePolygon(vIntersection, vTriangle, 3) || EdgeBoxCollision(m_bbox.GetCenter(), vTriangle, 3, boxWidth/4, boxHeight/4)) {
 				if (vNormal.y >= 0.75) {
 					GroundCollisionResponse();
 				}

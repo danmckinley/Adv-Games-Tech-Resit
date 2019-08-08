@@ -79,53 +79,6 @@ void CPrimitiveObject::postRender() {
 	glDisable(GL_BLEND);
 }
 
-/*
-bool CPrimitiveObject::CheckCollision(CBoundingBox bbox) {
-	
-	for (int i = 0; i < m_numOfVerts; i += 3) {
-		// Store the current triangle we're testing
-		CVector3f vTriangle[3] = { m_polygons[i], m_polygons[i + 1], m_polygons[i + 2] };
-		// ++ Finding the bbox's classification
-		CVector3f vNormal = Normal(vTriangle);
-		float distance = 0.0f;
-		float largerAxis = bbox.GetWidth();
-		if (vNormal.y > vNormal.x && vNormal.y > vNormal.z) {
-			largerAxis = bbox.GetHeight();
-		} else if (vNormal.x > vNormal.z) {
-			largerAxis = bbox.GetWidth();
-		} else if (vNormal.z > vNormal.x) {
-			largerAxis = bbox.GetDepth();
-		}
-		
-		int classification = ClassifyBox(bbox.GetCenter(), vNormal, vTriangle[0],
-			largerAxis, distance);
-		if (classification == INTERSECTS) {
-			vOffset = vNormal * distance;
-			CVector3f vIntersection = bbox.GetCenter() - vOffset;
-			if (InsidePolygon(vIntersection, vTriangle, 3) || EdgeBoxCollision(bbox.GetCenter(), vTriangle, 3, bbox.GetWidth()/2)) {
-				vOffset = GetCollisionOffset(vNormal, largerAxis, distance);
-				return true;
-			}
-			return false;
-		}
-	}
-	return false;
-}
-*/
-
-/*
-CVector3f CPrimitiveObject::GetOffset() {
-	return vOffset;
-}
-*/
-
-/*
-CVector3f* CPrimitiveObject::GetPolygonData()
-{
-	return m_polygons;
-}
-*/
-
 CVector3f CPrimitiveObject::GetVertexAtIndex(int index) {
 	CVector3f vertex = m_polygons[index];
 	vertex = ToWorldCoordinates(vertex);
@@ -141,7 +94,7 @@ int CPrimitiveObject::GetNumberOfVerts()
 
 CPrimitiveCuboid::CPrimitiveCuboid() 
 {
-	m_numOfVerts = 12 * 3; // number of vertices for each triangle (3) multiplied by the number of triangles (6 QUADS so 12 TRIS)
+	m_numOfVerts = 12 * 3; // number of vertices for each triangle (3) multiplied by the number of triangles (6 QUADS therefore 12 TRIS)
 	m_polygons = new CVector3f[m_numOfVerts];
 }
 
