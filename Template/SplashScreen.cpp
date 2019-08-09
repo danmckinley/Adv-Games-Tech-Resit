@@ -4,9 +4,18 @@ CSplashScreen::CSplashScreen() {}
 CSplashScreen::~CSplashScreen() {}
 
 void CSplashScreen::Initialise() {
-	CTexture texture;
-	texture.Load("Resources\\Textures\\splashscreen.jpg", false);
-	m_textureID = texture.m_textureID;
+	introScreen.Load("Resources\\Textures\\introscreen.jpg", false);
+	winScreen.Load("Resources\\Textures\\winscreen.jpg", false);
+	loseScreen.Load("Resources\\Textures\\losescreen.jpg", false);
+	m_textureID = introScreen.m_textureID;
+}
+
+void CSplashScreen::SetLoseScreen() {
+	m_textureID = loseScreen.m_textureID;
+}
+
+void CSplashScreen::SetWinScreen() {
+	m_textureID = winScreen.m_textureID;
 }
 
 void CSplashScreen::preRender() {

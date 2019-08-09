@@ -13,6 +13,10 @@ public:
 
 	void Initialise();
 
+	void SetLoseScreen();
+
+	void SetWinScreen();
+
 	void preRender();
 
 	void postRender();
@@ -24,6 +28,9 @@ public:
 	void Render(float r, float g, float b, float a);
 private:
 	UINT m_textureID;
+	CTexture introScreen;
+	CTexture winScreen;
+	CTexture loseScreen;
 
 };
 

@@ -17,6 +17,8 @@ public:
 
 	void Movement(double dt);
 
+	void DoPlayerDamage(int damage);
+
 	
 									// method which changes the m_rightHandedCamera boolean which 
 	void FlipCamera();				// determines which direction the camera is offset behind the player	

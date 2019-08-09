@@ -126,6 +126,16 @@ void CPlayer::Movement(double dt)
 	}
 }
 
+void CPlayer::DoPlayerDamage(int damage)
+{
+	if (m_shieldHealth> 0) {
+		m_shieldHealth -= damage;
+	}
+	else {
+		m_health -= damage;
+	} 
+}
+
 void CPlayer::FlipCamera() {
 	//anim++;
 	if (m_rightHandedCamera == true) {

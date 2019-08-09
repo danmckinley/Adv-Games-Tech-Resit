@@ -150,6 +150,11 @@ void Game::Update()
 		DetectCollisions();
 	}
 
+	if (gemScore >= 5) {
+		m_introScreen = true;
+		m_splashScreen.SetWinScreen();
+	}
+
 	// Periodically update audio being played back by FMOD
 	m_audio.Update();
 	
@@ -169,7 +174,13 @@ void Game::DetectCollisions()
 			//m_player.CheckEntityCollision(e->GetBBox())
 				m_player.CheckEntityCollision(e->GetBBox());
 				//e->CheckEntityCollision(m_player.GetBBox());
-				//m_player.takeDamage(10); // TODO !!!!!!!!!!!!!!!!!!!!!
+				if (m_player.GetBBox().Collision(e->GetBBox())) {
+					m_player.DoPlayerDamage(10); 
+				}
+				if (m_player.GetHealth() <= 0) {
+					m_introScreen = true;
+					m_splashScreen.SetLoseScreen();
+				}
 
 		}
 
