@@ -5,7 +5,10 @@
 //ground texture from "https://jooinn.com/muddy-soil-texture.html"
 
 CTerrain::CTerrain()
-{}
+{
+	float m_numOfVerts = 2 * 3; // number of vertices for each triangle (3) multiplied by the number of triangles (6 QUADS therefore 12 TRIS)
+	m_polygons = new CVector3f[m_numOfVerts];
+}
 
 CTerrain::~CTerrain()
 {}
@@ -29,7 +32,18 @@ bool CTerrain::Initialise()
 	v1 = CVector3f(x, y, z + length);
 	v2 = CVector3f(x + width, y, z+length);
 	v3 = CVector3f(x+width, y, z);
+	m_polygons[0] = v0;//first triangle
+	m_polygons[1] = v2;
+	m_polygons[2] = v1;
+	m_polygons[3] = v0;//next triangle
+	m_polygons[4] = v3;
+	m_polygons[5] = v2;
 	return true;
+}
+
+CVector3f CTerrain::GetVertexAtIndex(int index) {
+	CVector3f vertex = m_polygons[index];
+	return vertex;
 }
 
 void CTerrain::Render()

@@ -11,6 +11,7 @@ public:
 	CTerrain();
 	~CTerrain();
 	bool Initialise();
+	CVector3f GetVertexAtIndex(int index);
 	void Render();
 	CVector3f *m_polygons;				// array of polygons for the purpose of adding to the game data array in game.cpp
 	CVector3f v0, v1, v2, v3;

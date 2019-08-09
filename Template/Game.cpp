@@ -105,6 +105,14 @@ void Game::Initialise()
 		}
 	}
 
+	for (int i = 0; i < 6; i++) {
+		CVector3f vertex = m_terrain.GetVertexAtIndex(i);
+		m_vWorld[index].x = vertex.x;
+		m_vWorld[index].y = vertex.y;
+		m_vWorld[index].z = vertex.z;
+		index++;
+	}
+
 	/* // If you plan to load a number of enemies and store them on an std::vector, it is best to use pointers, like this:
 	for (unsigned int i = 0; i < 5; i++) {
 	   m_enemies.push_back(new CMD2Model);
