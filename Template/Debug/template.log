@@ -1,4 +1,29 @@
 ﻿  Enemy.cpp
-  Player.cpp
+  Game.cpp
+e:\projects\adv-games-tech-resit\resit\adv-games-tech-resit\template\game.cpp(186): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1774): note: see declaration of 'sprintf'
+e:\projects\adv-games-tech-resit\resit\adv-games-tech-resit\template\game.cpp(188): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\string.h(133): note: see declaration of 'strcpy'
+e:\projects\adv-games-tech-resit\resit\adv-games-tech-resit\template\game.cpp(189): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\string.h(90): note: see declaration of 'strcat'
+e:\projects\adv-games-tech-resit\resit\adv-games-tech-resit\template\game.cpp(190): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\string.h(90): note: see declaration of 'strcat'
+e:\projects\adv-games-tech-resit\resit\adv-games-tech-resit\template\game.cpp(194): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1774): note: see declaration of 'sprintf'
+e:\projects\adv-games-tech-resit\resit\adv-games-tech-resit\template\game.cpp(196): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\string.h(133): note: see declaration of 'strcpy'
+e:\projects\adv-games-tech-resit\resit\adv-games-tech-resit\template\game.cpp(197): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\string.h(90): note: see declaration of 'strcat'
+e:\projects\adv-games-tech-resit\resit\adv-games-tech-resit\template\game.cpp(198): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\string.h(90): note: see declaration of 'strcat'
+e:\projects\adv-games-tech-resit\resit\adv-games-tech-resit\template\game.cpp(202): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1774): note: see declaration of 'sprintf'
+e:\projects\adv-games-tech-resit\resit\adv-games-tech-resit\template\game.cpp(204): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\string.h(133): note: see declaration of 'strcpy'
+e:\projects\adv-games-tech-resit\resit\adv-games-tech-resit\template\game.cpp(205): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\string.h(90): note: see declaration of 'strcat'
+e:\projects\adv-games-tech-resit\resit\adv-games-tech-resit\template\game.cpp(206): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\string.h(90): note: see declaration of 'strcat'
   Generating Code...
+e:\projects\adv-games-tech-resit\resit\adv-games-tech-resit\template\game.cpp(553): warning C4715: 'Game::ProcessEvents': not all control paths return a value
   template.vcxproj -> E:\Projects\Adv-Games-Tech-Resit\Resit\Adv-Games-Tech-Resit\Debug\template.exe

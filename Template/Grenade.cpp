@@ -48,7 +48,7 @@ void CGrenade::GroundCollisionResponse()
 void CGrenade::Update(float dt)
 {
 	m_timeAlive += dt;
-	if (m_timeAlive > 2) {
+	if (m_timeAlive > 3) {
 		exploded = true;
 		Explode();
 	}
@@ -140,12 +140,12 @@ void CGrenade::Render()
 		}
 		glutSolidSphere(m_radius, 25, 25);
 		glPopMatrix();
-	}/*
-	else {
-		m_explosionSprite.Activate();
-		m_explosionSprite.Render(m_position, m_camera.GetPosition(), m_camera.GetUpVector(), 10, 10);
 	}
-	*/
+	else {
+		//m_explosionSprite.Activate();
+		//m_explosionSprite.Render(m_position, m_camera.GetPosition(), m_camera.GetUpVector(), 10, 10);
+	}
+	
 }
 
 CVector3f CGrenade::GetPosition()

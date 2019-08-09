@@ -61,7 +61,6 @@ void CEnemy::Render()
 
 void CEnemy::Face(CVector3f player) {		//sets the m_direction variable towards the vector (which will be the player)
 	CVector3f facing = player - m_position;
-	facing.Normalise();
 	facing.y = 0;
 	if (facing.Length() < 5) {
 		m_state = FLEE;

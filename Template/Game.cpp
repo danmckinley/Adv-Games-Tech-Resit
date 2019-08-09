@@ -61,7 +61,7 @@ void Game::Initialise()
 
 	m_lightPos = CVector3f(30, 5, 30);
 
-	// CREATE OBSTACLES
+	// CREATE OBSTACLES & LOAD THEM INTO WORLD DATA VECTOR
 	for (int i = 0; i < 5; i++) {
 		shared_ptr<CMetalFloor> floor = make_shared<CMetalFloor>();
 		floor->Initialise();
@@ -83,9 +83,6 @@ void Game::Initialise()
 		m_numberOfVerts += lamp->GetNumberOfVerts();
 		m_obstacles.push_back(lamp);
 	}
-	shared_ptr<CGem> gem = make_shared<CGem>();
-	gem->Initialise();
-	m_gems.push_back(gem);
 	m_numberOfVerts += 6; // number of verts from m_terrain
 	SetUpStaticObjects(); // positions all the obstacle objects in the world
 
@@ -104,7 +101,6 @@ void Game::Initialise()
 			index++;
 		}
 	}
-	
 	// set up the world data for the terrain
 	for (int i = 0; i < 6; i++) {
 		CVector3f vertex = m_terrain.GetVertexAtIndex(i);
@@ -113,20 +109,19 @@ void Game::Initialise()
 		m_vWorld[index].z = vertex.z;
 		index++;
 	}
-		
+
+	// create the gems
+	for (int i = 0; i < 5; i++) { 
+		shared_ptr<CGem> gem = make_shared<CGem>();
+		gem->Initialise();
+		m_gems.push_back(gem);
+	}
 	// create the enemies
 	for (int i = 0; i < 5; i++) {
 		shared_ptr<CEnemy> enemy = make_shared<CEnemy>();
 		enemy->Initialise();
 		m_enemies.push_back(enemy);
 	}
-
-	/* // If you plan to load a number of enemies and store them on an std::vector, it is best to use pointers, like this:
-	for (unsigned int i = 0; i < 5; i++) {
-	   m_enemies.push_back(new CMD2Model);
-	   m_enemies[i]->Load(...);
-	}
-	*/
 }
 
 // Update game objects using a timer
@@ -172,7 +167,15 @@ void Game::DetectCollisions()
 				m_player.CheckEntityCollision(e->GetBBox());
 				//e->CheckEntityCollision(m_player.GetBBox());
 				//m_player.takeDamage(10); // TODO !!!!!!!!!!!!!!!!!!!!!
-			
+
+		}
+	}
+	for (shared_ptr<CGem> g : m_gems) {
+		if (Distance(m_player.GetPosition(), g->GetPosition()) < 5.0f && !g->GetCollected()) {
+			if (g->CheckPlayerCollision(m_player.GetBBox())) {
+				g->SetCollected();
+				gemScore++;
+			}
 		}
 	}
 }
@@ -193,15 +196,23 @@ void Game::SetUpUI() {
 	strcpy(shields_ui, "");
 	strcat(shields_ui, default_shields_string);
 	strcat(shields_ui, shields_as_string);
+
+	char gems_as_string[4];					// does the same as above but for the player's shields instead of health
+	//gemScore;
+	sprintf(gems_as_string, "%d", gemScore);
+	char default_gems_string[] = "Gems: ";
+	strcpy(gems_ui, "");
+	strcat(gems_ui, default_gems_string);
+	strcat(gems_ui, gems_as_string);
 }
 
 // Render the scene
-void Game::Render() 
+void Game::Render()
 {
 	// GLuint errCode = glGetError(); // Can check for OpenGL errors with this -- should be zero if no error
-	
+
 	// Clear the buffers and load the identity matrix into the modelview matrix
-	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
 	// Calling look will put the viewing matrix onto the modelview matrix stack
@@ -214,23 +225,22 @@ void Game::Render()
 
 
 	if (m_introScreen == true) {	//If we are on an introscreen, we can render it here, else...
-		m_splashScreen.Render(1,1,1,1);
-	} else {
+		m_splashScreen.Render(1, 1, 1, 1);
+	}
+	else {
 		SetUpUI();
 		// Render skybox with no lighting
 		glDisable(GL_LIGHTING);
-		m_skybox.Render(vPos.x,  vPos.y,  vPos.z, 250, 500, 250);  // Render the skybox with lighting off
-		m_text.Render(health_ui, 10, 540, 1, 0, 0);  // Draw some text -- useful for debugging and head's up displays
-		m_text.Render(shields_ui, 10, 520, 0, 0, 1);	//TODO display shield health here
-		//TODO implement score
-		glEnable(GL_LIGHTING);
-		
+		m_skybox.Render(vPos.x, vPos.y, vPos.z, 250, 500, 250);  // Render the skybox with lighting off
+		m_text.Render(health_ui, 200, 10, 1, 0, 0);  // Draw some text -- useful for debugging and head's up displays
+		m_text.Render(shields_ui, 380, 10, 0, 0, 1);	
+		m_text.Render(gems_ui, 550, 10, 0, 1, 0);
 
+		glEnable(GL_LIGHTING);
 		// Set materials and lighting for the scene
 		m_lighting.SetDefaultLighting();
 		m_material.SetDefaultMaterial();
 
-									
 		m_lighting.SetTestLight(m_lightPos);		//Here I was experimenting with a point light
 		glDisable(GL_LIGHTING);
 		glColor3f(1, 1, 1);
@@ -261,13 +271,17 @@ void Game::Render()
 		glPopMatrix();
 
 		// RENDER TRANSPARENT OBJECTS LAST
-		glPushMatrix(); {
-			m_gems[0]->SetPosition(CVector3f(27, 1, 20));
-			m_gems[0]->Render();
-		}glPopMatrix();
-		
+		RenderGems();
+
 	}
-	SwapBuffers(m_GameWindow.GetHdc());		
+	SwapBuffers(m_GameWindow.GetHdc());
+}
+
+void Game::RenderGems() {
+	if (m_gems.size() > 0) {
+		for (shared_ptr<CGem> g : m_gems){
+		g -> Render();}
+	}
 }
 
 void Game::RenderEnemies() {

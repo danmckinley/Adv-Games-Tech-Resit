@@ -46,6 +46,7 @@ private:
 	void DetectCollisions();
 	void SetUpUI();
 	void Render();			// Render the scene
+	void RenderGems();
 	void RenderGrenades();
 	void RenderEnemies();
 	void RenderMetalFloors();
@@ -72,12 +73,16 @@ private:
 	CEnemy m_enemy;
 	
 	bool m_introScreen;								// A boolean flag indicating if the intro screen is on
+	bool m_deathScreen = false;
+	bool m_winScreen = false;
 	double m_dt;									// A variable to measure the amount of time elasped between frames
 	
 	COpenAssetImporterMesh m_watchTower;
 
 	char health_ui[32];														// variable for storing the player's current health in the form "Health: (current health)"
 	char shields_ui[32];														// variable for storing player's current shields
+	char gems_ui[32];
+	int gemScore = 0;
 	CSplashScreen m_splashScreen;											// Member variable splash screen
 	CVector3f m_lightPos;
 	CVector3f m_lampLightPos;
