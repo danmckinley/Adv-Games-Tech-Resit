@@ -8,17 +8,6 @@ CTerrain::CTerrain()
 {
 	float m_numOfVerts = 2 * 3; // number of vertices for each triangle (3) multiplied by the number of triangles (6 QUADS therefore 12 TRIS)
 	m_polygons = new CVector3f[m_numOfVerts];
-}
-
-CTerrain::~CTerrain()
-{}
-
-bool CTerrain::Initialise()
-{
-	// Load the texture
-	CTexture texture;
-	texture.Load("Resources\\Textures\\MudTerrain.jpg", false); 
-	m_textureID = texture.m_textureID;
 	float TERRAIN_SIZE = 500;
 
 	length = TERRAIN_SIZE / 2.0f;
@@ -30,8 +19,20 @@ bool CTerrain::Initialise()
 	float z = -length / 2.0f;
 	v0 = CVector3f(x, y, z);
 	v1 = CVector3f(x, y, z + length);
-	v2 = CVector3f(x + width, y, z+length);
-	v3 = CVector3f(x+width, y, z);
+	v2 = CVector3f(x + width, y, z + length);
+	v3 = CVector3f(x + width, y, z);
+}
+
+CTerrain::~CTerrain()
+{}
+
+bool CTerrain::Initialise()
+{
+	// Load the texture
+	CTexture texture;
+	texture.Load("Resources\\Textures\\MudTerrain.jpg", false); 
+	m_textureID = texture.m_textureID;
+	
 	m_polygons[0] = v0;//first triangle
 	m_polygons[1] = v2;
 	m_polygons[2] = v1;

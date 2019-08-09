@@ -86,7 +86,7 @@ void Game::Initialise()
 	shared_ptr<CGem> gem = make_shared<CGem>();
 	gem->Initialise();
 	m_gems.push_back(gem);
-
+	m_numberOfVerts += 6; // number of verts from m_terrain
 	SetUpStaticObjects(); // positions all the obstacle objects in the world
 
 	// Populate the world data (m_vWorld) with vertices
@@ -104,7 +104,7 @@ void Game::Initialise()
 			index++;
 		}
 	}
-
+	
 	for (int i = 0; i < 6; i++) {
 		CVector3f vertex = m_terrain.GetVertexAtIndex(i);
 		m_vWorld[index].x = vertex.x;

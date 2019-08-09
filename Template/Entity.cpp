@@ -20,10 +20,12 @@ void CEntity::HandlePhysics(float dt){
 	}
 	m_contactTime += dt;
 
+	/*
 	float yPlane = 0.0f;	// is set to same y value as the ground
 	if (GroundCollisionDetection(yPlane)) {
 		GroundCollisionResponse();
 	}
+	*/
 }
 
 bool CEntity::GroundCollisionDetection(float yPlane) {
