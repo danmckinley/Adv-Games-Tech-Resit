@@ -23,8 +23,8 @@ public:
 	bool onGround = true;
 	bool GroundCollisionDetection(float yPlane);
 	void GroundCollisionResponse();
-	void ObstacleGroundCollisionResponse();
 	void CheckWorldCollision(CVector3f *pVertices, int numOfVerts);
+	void CheckEntityCollision(CBoundingBox enemyBox);
 	void Shoot(std::vector<std::shared_ptr<CGrenade>>& grenadelist, Camera & camera);
 	//void Shoot(std::vector<std::shared_ptr<CGrenade>>& grenadelist);
 	void SetPosition(CVector3f position);

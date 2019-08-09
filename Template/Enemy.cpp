@@ -4,8 +4,8 @@
 
 CEnemy::CEnemy()
 {
-	m_position = CVector3f(10, 0, 10);
-	
+	//m_position = CVector3f(10, 0, 10);
+	m_position = CVector3f((rand() % 50) - 25, 0, (rand() % 50)); // random spawn locations for enemies
 }
 CEnemy::~CEnemy()
 {}
@@ -61,6 +61,7 @@ void CEnemy::Render()
 
 void CEnemy::Face(CVector3f player) {		//sets the m_direction variable towards the vector (which will be the player)
 	CVector3f facing = player - m_position;
+	facing.Normalise();
 	facing.y = 0;
 	if (facing.Length() < 5) {
 		m_state = FLEE;

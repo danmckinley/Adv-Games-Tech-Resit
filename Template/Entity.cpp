@@ -75,14 +75,28 @@ void CEntity::CheckWorldCollision(CVector3f *pVertices, int numOfVerts)
 			CVector3f vIntersection = m_bbox.GetCenter() - vOffset;
 			// this is what actually determines whether or not there is a collision
 			if (InsidePolygon(vIntersection, vTriangle, 3) || EdgeBoxCollision(m_bbox.GetCenter(), vTriangle, 3, boxWidth/4, boxHeight/4)) {
+				// if the plane is suitably horizontal, fire groundCollisionResponse (allows player jumping again)
 				if (vNormal.y >= 0.75) {
 					GroundCollisionResponse();
 				}
+				// calculate how much to offset the player by
 				vOffset = GetCollisionOffset(vNormal, boxWidth, boxHeight, distance);
 				m_position = m_position + vOffset;
 			}
 		}
 		
+	}
+}
+
+void CEntity::CheckEntityCollision(CBoundingBox otherBox) {
+	
+	if (m_bbox.Collision(otherBox)) {
+		float distance = Distance(otherBox.GetCenter(), m_bbox.GetCenter());
+		CVector3f direction = otherBox.GetCenter() - m_bbox.GetCenter();	// direction vector found by subtracting start from the destination
+		direction.Normalise();
+		direction.y = 0;
+		CVector3f vOffset = GetCollisionOffset(direction, m_bbox.GetWidth(), m_bbox.GetHeight(), distance);
+		m_position = m_position + vOffset;
 	}
 }
 

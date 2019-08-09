@@ -47,6 +47,7 @@ private:
 	void SetUpUI();
 	void Render();			// Render the scene
 	void RenderGrenades();
+	void RenderEnemies();
 	void RenderMetalFloors();
 	void RenderShippingContainers();
 	void RenderLampPosts();
@@ -84,8 +85,8 @@ private:
 	std::vector<shared_ptr<CMetalFloor>> m_metalFloors;						// vector of all metalFloors
 	std::vector<shared_ptr<CShippingContainer>> m_shippingContainers;		// vector of all shippingContainers
 	std::vector<shared_ptr<CLampPost>> m_lampPosts;							// vector of all lampPosts
-	std::vector<shared_ptr<CEntity>> m_entities;
 	std::vector<shared_ptr<CGrenade>> m_grenades;
+	std::vector<shared_ptr<CEnemy>> m_enemies;
 	std::vector<shared_ptr<CGem>> m_gems;
 
 	int m_numberOfVerts;

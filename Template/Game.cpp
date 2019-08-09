@@ -105,12 +105,20 @@ void Game::Initialise()
 		}
 	}
 	
+	// set up the world data for the terrain
 	for (int i = 0; i < 6; i++) {
 		CVector3f vertex = m_terrain.GetVertexAtIndex(i);
 		m_vWorld[index].x = vertex.x;
 		m_vWorld[index].y = vertex.y;
 		m_vWorld[index].z = vertex.z;
 		index++;
+	}
+		
+	// create the enemies
+	for (int i = 0; i < 5; i++) {
+		shared_ptr<CEnemy> enemy = make_shared<CEnemy>();
+		enemy->Initialise();
+		m_enemies.push_back(enemy);
 	}
 
 	/* // If you plan to load a number of enemies and store them on an std::vector, it is best to use pointers, like this:
@@ -131,13 +139,17 @@ void Game::Update()
 
 	if (!m_introScreen) {				// only update the player and enemies when there is no intro screen
 		m_player.Update(m_dt);
-		m_enemy.Update(m_dt);
-		DetectCollisions();
+		if (m_enemies.size() > 0) {
+			for (shared_ptr<CEnemy> e : m_enemies) {
+				e->Update(m_dt);
+			}
+		}
 		if (m_grenades.size() > 0) {
 			for (shared_ptr<CGrenade> g : m_grenades) {
 				g->Update(m_dt);
 			}
 		}
+		DetectCollisions();
 	}
 
 	// Periodically update audio being played back by FMOD
@@ -148,22 +160,21 @@ void Game::Update()
 
 void Game::DetectCollisions()
 {
-	if (m_enemy.GetBBox().Collision(m_player.GetBBox())) {
-		//TODO - Make better collision response
-	}
-
+	// player collision with world
 	m_player.CheckWorldCollision(m_vWorld, m_numberOfVerts);
-
-	/*// OLD COLLISION
-	for(shared_ptr<CPrimitiveObject> o : m_obstacles) {
-		if (o->CheckCollision(m_player.GetBBox())) {
-			m_player.SetPosition(m_player.GetPosition() + o->GetOffset());
-		}
-		if (o->CheckCollision(m_enemy.GetBBox())) {
-			m_enemy.SetPosition(m_enemy.GetPosition() + o->GetOffset());
+	// enemy collision
+	for (shared_ptr<CEnemy> e : m_enemies) {
+		// enemy collision with world
+		e->CheckWorldCollision(m_vWorld, m_numberOfVerts);
+		//enemy collision with player
+		if (Distance(m_player.GetPosition(), e->GetPosition()) < 5.0f) {	// really basic space culling
+			//m_player.CheckEntityCollision(e->GetBBox())
+				m_player.CheckEntityCollision(e->GetBBox());
+				//e->CheckEntityCollision(m_player.GetBBox());
+				//m_player.takeDamage(10); // TODO !!!!!!!!!!!!!!!!!!!!!
+			
 		}
 	}
-	*/
 }
 
 void Game::SetUpUI() {
@@ -240,8 +251,7 @@ void Game::Render()
 		RenderGrenades();
 
 		m_player.Render();
-		m_enemy.Face(m_player.GetPosition());
-		m_enemy.Render();
+		RenderEnemies();
 
 		glPushMatrix(); {
 			glTranslatef(25, -2, 35);
@@ -260,31 +270,21 @@ void Game::Render()
 	SwapBuffers(m_GameWindow.GetHdc());		
 }
 
+void Game::RenderEnemies() {
+	if (m_enemies.size() > 0) {
+		for (shared_ptr<CEnemy> e : m_enemies) {
+			e->Face(m_player.GetPosition());
+			e->Render();
+		}
+	}
+}
+
 void Game::RenderGrenades() {
 	if (m_grenades.size() > 0) {
 		for (shared_ptr<CGrenade> g : m_grenades) {
 			g->Render();
 		}
 	}
-}
-
-// Sets up all static objects in their positions (in world Coordinates)
-void Game::SetUpStaticObjects() { 
-	//metal floors
-	m_metalFloors[0]->SetPosition(CVector3f(30, 1, 30));
-	m_metalFloors[0]->SetRotation(90, 1, 0, 0);
-	m_metalFloors[1]->SetPosition(CVector3f(35, 1, 30));
-	m_metalFloors[1]->SetScaling(1.25, 1.25, 1.25);
-	m_metalFloors[2]->SetPosition(CVector3f(40, 1, 30));
-	m_metalFloors[2]->SetScaling(1.5, 1.5, 1.5);
-	m_metalFloors[3]->SetPosition(CVector3f(50, 3, 20));
-	m_metalFloors[4]->SetPosition(CVector3f(50, 2, 10));
-	//shipping containers
-	m_shippingContainers[0]->SetPosition(CVector3f(20, 0, 20));
-	m_shippingContainers[0]->SetRotation(45, 0, 1, 0);
-	m_shippingContainers[1]->SetPosition(CVector3f(10, 0, 0));
-	//lamp posts
-	m_lampPosts[0]->SetPosition(CVector3f(30, 0, 20));
 }
 
 void Game::RenderMetalFloors()			// Method responsible for rendering all of the metalFloors stored in the m_metalFloors vector
@@ -317,7 +317,24 @@ void Game::RenderLampPosts() {
 	glEnable(GL_LIGHTING);
 }
 
-
+// Sets up all static objects in their positions (in world Coordinates)
+void Game::SetUpStaticObjects() {
+	//metal floors
+	m_metalFloors[0]->SetPosition(CVector3f(30, 1, 30));
+	m_metalFloors[0]->SetRotation(90, 1, 0, 0);
+	m_metalFloors[1]->SetPosition(CVector3f(35, 1, 30));
+	m_metalFloors[1]->SetScaling(1.25, 1.25, 1.25);
+	m_metalFloors[2]->SetPosition(CVector3f(40, 1, 30));
+	m_metalFloors[2]->SetScaling(1.5, 1.5, 1.5);
+	m_metalFloors[3]->SetPosition(CVector3f(50, 3, 20));
+	m_metalFloors[4]->SetPosition(CVector3f(50, 2, 10));
+	//shipping containers
+	m_shippingContainers[0]->SetPosition(CVector3f(20, 0, 20));
+	m_shippingContainers[0]->SetRotation(45, 0, 1, 0);
+	m_shippingContainers[1]->SetPosition(CVector3f(10, 0, 0));
+	//lamp posts
+	m_lampPosts[0]->SetPosition(CVector3f(30, 0, 20));
+}
 
 void Game::GameLoop()
 {
