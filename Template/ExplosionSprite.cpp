@@ -20,9 +20,8 @@ void CExplosionSprite::Activate()
 
 void CExplosionSprite::Update(float dt)
 {
-
-	//if (m_active == false)
-		//return;
+	if (m_active == false)
+		return;
 
 	// Update the frame based on dt
 	float frameTime = 1.0f / 30.0f;  // Sprite running at 30 frames per second
@@ -68,9 +67,9 @@ bool CExplosionSprite::Initialise()
 void CExplosionSprite::Render(CVector3f p, CVector3f lookAt, CVector3f upVector, float width, float height)
 {
 
-	//if (m_active == false)
-		//return;
-
+	if (m_active == false)
+		return;
+	glDisable(GL_LIGHTING);
 	float fImageWidth = (float)m_texture.m_width;
 	float fImageHeight = (float)m_texture.m_height;
 
@@ -114,4 +113,5 @@ void CExplosionSprite::Render(CVector3f p, CVector3f lookAt, CVector3f upVector,
 	glEnd();
 
 	glDisable(GL_BLEND);
+	glEnable(GL_LIGHTING);
 }

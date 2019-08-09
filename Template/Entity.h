@@ -15,7 +15,8 @@
 class CEntity {
 public:
 	CEntity();
-	void DecreaseHealth(int damage);
+	void DoDamage(int damage);
+	virtual void Kill();
 	virtual void Update(float dt) = 0;
 	virtual void Initialise() = 0;
 	virtual void Render() = 0;

@@ -102,10 +102,10 @@
     <ClCompile Include="Grenade.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ExplosionSprite.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="Gem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplosionSprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

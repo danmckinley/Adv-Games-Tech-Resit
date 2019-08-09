@@ -5,8 +5,18 @@ CEntity::CEntity() {
 	m_coefficientOfRestitution = 0.75f;				// reduced coefficient of restitution so that more velocity is lost per bounce
 }
 
-void CEntity::DecreaseHealth(int damage) {
-	m_health -= damage;
+void CEntity::DoDamage(int damage) {
+	if (m_health-damage > 0) {
+		m_health -= damage;
+	}
+	else {
+		Kill();
+	}
+	
+}
+
+void CEntity::Kill() {
+
 }
 
 void CEntity::HandlePhysics(float dt){

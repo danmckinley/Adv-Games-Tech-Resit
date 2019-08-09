@@ -58,6 +58,8 @@ void Game::Initialise()
 	m_watchTower.Load("Resources\\Meshes\\obj\\wooden watch tower2.obj");
 	m_player.Initialise();
 	m_enemy.Initialise();
+	m_mesh.Load("Resources\\Meshes\\Waste\\tris.md2", "Resources\\Meshes\\Waste\\waste.jpg", "Resources\\Meshes\\Waste\\weapon.md2", "Resources\\Meshes\\Waste\\weapon.jpg");
+
 
 	m_lightPos = CVector3f(30, 5, 30);
 
@@ -137,6 +139,7 @@ void Game::Update()
 		if (m_enemies.size() > 0) {
 			for (shared_ptr<CEnemy> e : m_enemies) {
 				e->Update(m_dt);
+				e->UpdatePlayerReference(m_player.GetPosition());
 			}
 		}
 		if (m_grenades.size() > 0) {
@@ -168,6 +171,17 @@ void Game::DetectCollisions()
 				//e->CheckEntityCollision(m_player.GetBBox());
 				//m_player.takeDamage(10); // TODO !!!!!!!!!!!!!!!!!!!!!
 
+		}
+
+		if (m_grenades.size() > 0) {
+			for (shared_ptr<CGrenade> grenade : m_grenades) {
+				if (Distance(e->GetPosition(), grenade->GetPosition()) < 5.0f) {
+					if (grenade->CheckEntityCollision(e->GetBBox())) {
+						e->DoDamage(25);
+						grenade->Explode();
+					}
+				}
+			}
 		}
 	}
 	for (shared_ptr<CGem> g : m_gems) {
@@ -230,8 +244,8 @@ void Game::Render()
 	else {
 		SetUpUI();
 		// Render skybox with no lighting
-		glDisable(GL_LIGHTING);
 		m_skybox.Render(vPos.x, vPos.y, vPos.z, 250, 500, 250);  // Render the skybox with lighting off
+		glDisable(GL_LIGHTING);
 		m_text.Render(health_ui, 200, 10, 1, 0, 0);  // Draw some text -- useful for debugging and head's up displays
 		m_text.Render(shields_ui, 380, 10, 0, 0, 1);	
 		m_text.Render(gems_ui, 550, 10, 0, 1, 0);
@@ -270,6 +284,13 @@ void Game::Render()
 		}
 		glPopMatrix();
 
+		glPushMatrix(); {
+			glTranslatef(30, 4, 0);
+			glScalef(0.1f, 0.1f, 0.1f);
+			m_mesh.Render(true);
+		}
+		glPopMatrix();
+
 		// RENDER TRANSPARENT OBJECTS LAST
 		RenderGems();
 
@@ -287,7 +308,6 @@ void Game::RenderGems() {
 void Game::RenderEnemies() {
 	if (m_enemies.size() > 0) {
 		for (shared_ptr<CEnemy> e : m_enemies) {
-			e->Face(m_player.GetPosition());
 			e->Render();
 		}
 	}

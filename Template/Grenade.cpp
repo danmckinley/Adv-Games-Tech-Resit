@@ -13,7 +13,9 @@ CGrenade::CGrenade(Camera camera)
 }
 
 void CGrenade::Initialise() {
-	/*m_explosionSprite.Initialise();*/
+	m_explosionSprite.Initialise();
+	m_bbox.SetBottom(CVector3f(m_position.x,m_position.y-m_radius, m_position.z));
+	m_bbox.SetSize(m_radius*2, m_radius * 2, m_radius * 2);
 }
 
 bool CGrenade::GroundCollisionDetection(float yPlane)
@@ -47,9 +49,9 @@ void CGrenade::GroundCollisionResponse()
 
 void CGrenade::Update(float dt)
 {
+	m_bbox.SetBottom(m_position);
 	m_timeAlive += dt;
 	if (m_timeAlive > 3) {
-		exploded = true;
 		Explode();
 	}
 	if (exploded == false) {
@@ -73,11 +75,8 @@ void CGrenade::Update(float dt)
 		if (GroundCollisionDetection(yPlane)) {
 			GroundCollisionResponse();
 		}
-	}/*
-	else {
-		m_explosionSprite.Update(dt);
 	}
-	*/
+	m_explosionSprite.Update(dt);
 }
 
 void CGrenade::Shoot(CVector3f pos){
@@ -86,6 +85,7 @@ void CGrenade::Shoot(CVector3f pos){
 	direction.Normalise();							// Normalised direction camera is facing
 
 	// Initialise all physical variables
+	m_explosionPosition = CVector3f(0.0f, 0.0f, 0.0f);
 	m_position = CVector3f(0.0f, 0.0f, 0.0f);
 	m_velocity = CVector3f(0.0f, 0.0f, 0.0f);
 	m_acceleration = CVector3f(0.0f, -9.8f, 0.0f);
@@ -113,8 +113,13 @@ void CGrenade::Shoot(CVector3f pos){
 }
 
 void CGrenade::Explode() {
+	if (!exploded) {
+		m_explosionPosition = m_lastPosition;
+		m_explosionSprite.Activate();
+	}
+	exploded = true;
 	// Initialise all physical variables
-	m_position = CVector3f(0.0f, 0.0f, 0.0f);
+	m_position = CVector3f(10.0f, -10.0f, 0.0f);
 	m_velocity = CVector3f(0.0f, 0.0f, 0.0f);
 	m_acceleration = CVector3f(0.0f, 0.0f, 0.0f);
 	m_instantaneousAcceleration = CVector3f(0.0f, 0.0f, 0.0f);
@@ -123,7 +128,9 @@ void CGrenade::Explode() {
 	m_angularAcceleration = CVector3f(0.0f, 0.0f, 0.0f);
 	m_instantaneousAngularAcceleration = CVector3f(0.0f, 0.0f, 0.0f);
 	m_contactTime = 0.0f;
-	m_radius = 5.0f;
+	//m_radius = 5.0f;
+	
+	
 }
 
 
@@ -141,10 +148,11 @@ void CGrenade::Render()
 		glutSolidSphere(m_radius, 25, 25);
 		glPopMatrix();
 	}
-	else {
-		//m_explosionSprite.Activate();
-		//m_explosionSprite.Render(m_position, m_camera.GetPosition(), m_camera.GetUpVector(), 10, 10);
-	}
+		m_explosionSprite.Render(m_explosionPosition, m_camera.GetViewPoint() - m_camera.GetPosition(), m_camera.GetUpVector(), 5, 5);
+	
+}
+
+void CGrenade::ActivateExplosion() {
 	
 }
 
@@ -156,4 +164,14 @@ CVector3f CGrenade::GetPosition()
 CVector3f CGrenade::GetLastPosition()
 {
 	return m_lastPosition;
+}
+
+bool CGrenade::CheckEntityCollision(CBoundingBox otherBox) {
+	if (m_bbox.Collision(otherBox)) {
+		Explode();
+		return true;
+	}
+	else {
+		return false;
+	}
 }

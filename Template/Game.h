@@ -33,6 +33,7 @@
 #include "Grenade.h"
 #include "Gem.h"
 #include "SplashScreen.h"
+#include "ExplosionSprite.h"
 
 
 
@@ -69,6 +70,7 @@ private:
 	CSpecialFX m_fx;
 
 	COpenAssetImporterMesh m_jeep;
+	CMD2Model m_mesh;
 	CPlayer m_player;
 	CEnemy m_enemy;
 	
@@ -93,9 +95,14 @@ private:
 	std::vector<shared_ptr<CGrenade>> m_grenades;
 	std::vector<shared_ptr<CEnemy>> m_enemies;
 	std::vector<shared_ptr<CGem>> m_gems;
-
+	
+	// for world data
 	int m_numberOfVerts;
 	CVector3f *m_vWorld;
+
+	// sfx
+	CExplosionSprite m_explosionSprite;
+	
 	
 public:
 	~Game();

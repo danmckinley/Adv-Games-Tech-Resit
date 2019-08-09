@@ -5,6 +5,7 @@
 CEnemy::CEnemy()
 {
 	//m_position = CVector3f(10, 0, 10);
+	m_health = 100;
 	m_position = CVector3f((rand() % 50) - 25, 0, (rand() % 50)); // random spawn locations for enemies
 }
 CEnemy::~CEnemy()
@@ -24,18 +25,45 @@ void CEnemy::Initialise()
 
 void CEnemy::Update(float dt) {
 	switch (m_state) {
-	case TOOFAR:
-		Move(dt);
+	case TOOFAR:	// aware of player
+		TooFar();
 		break;
-	case FLEE:
-		Flee(dt);
+	case FLEE:		// injured
+		Flee();
 		break;
-	case INDIFFERENT:
+	case INDIFFERENT:	// not aware of player
+		Indifferent();
 		break;
-	case FIGHT:
+	case FIGHT:		// aware of player & in range
+		Fight();
+		break;
+	case DEAD:		// dead
+		Dead();
 		break;
 	}
+	if (moving) {
+		Move(dt);
+	}
 	m_bbox.SetBottom(m_position);
+}
+
+void CEnemy::Kill()
+{
+	m_state = DEAD;
+}
+
+void CEnemy::UpdatePlayerReference(CVector3f playerPosition) {
+	playerReference = playerPosition;
+	playerDirection = playerReference - m_position;
+	playerDirection.y = 0;
+	/*
+	if (playerDirection.Length() < 5) {
+		m_state = FLEE;
+	}
+	else if (playerDirection.Length() > 25) {
+		m_state = TOOFAR;
+	}
+	*/
 }
 
 void CEnemy::Render()
@@ -50,6 +78,7 @@ void CEnemy::Render()
 		m_mesh.Render(true);
 	}
 	glPopMatrix();
+	/*
 	#if(_DEBUG)
 		glDisable(GL_LIGHTING);
 		glDisable(GL_TEXTURE_2D);
@@ -57,28 +86,59 @@ void CEnemy::Render()
 		glEnable(GL_LIGHTING);
 		glEnable(GL_TEXTURE_2D);
 	#endif
+	*/
 }
 
-void CEnemy::Face(CVector3f player) {		//sets the m_direction variable towards the vector (which will be the player)
-	CVector3f facing = player - m_position;
-	facing.y = 0;
-	if (facing.Length() < 5) {
-		m_state = FLEE;
-	}
-	else if (facing.Length() > 25) {
-		m_state = TOOFAR;
-	}
+void CEnemy::Face() {		//sets the m_direction variable towards the player reference
+	CVector3f facing = playerDirection;
 	facing.Normalise();
 	m_direction = facing;
 
 }
 
 void CEnemy::Move(float dt) {				// moves the enemy in the direction of m_direction (to pursue the player)
+	Face();
 	float speed = dt * 2;
-	m_position += m_direction * speed;
+	if (m_state == FLEE) {
+		m_position -= m_direction * speed;
+	}
+	else {
+		m_position += m_direction * speed;
+	}
 }
 
-void CEnemy::Flee(float dt) {				// moves the enemy in the opposite direction of m_direction
-	float speed = dt * 2;
-	m_position -= m_direction * speed;
+void CEnemy::Indifferent()
+{
+	if (playerDirection.Length() <= 15) {
+		m_state = TOOFAR;
+	}
+	moving = false;
+}
+
+void CEnemy::TooFar() {
+	moving = true;
+	if (playerDirection.Length() <= 10) {
+		m_state = FIGHT;
+	}
+}
+
+void CEnemy::Flee() {				// moves the enemy in the opposite direction of m_direction
+	moving = true;
+	if ((playerDirection.Length() >= 30)) {
+		m_state = INDIFFERENT;
+	}
+}
+
+void CEnemy::Fight()
+{
+	// implement enemy shooting code
+	moving = false;
+	if ((playerDirection.Length() >= 10)) {
+		m_state = INDIFFERENT;
+	}
+}
+
+void CEnemy::Dead() {
+	moving = false;
+	m_position = CVector3f(0, -10, 0);
 }

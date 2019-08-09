@@ -1,7 +1,5 @@
 #pragma once
 #include "Entity.h"
-#define DROID_RUN 1
-#define DROID_ATTACK 2
 
 
 
@@ -12,16 +10,25 @@ public:
 	~CEnemy();
 	void Initialise() override;
 	void Update(float dt) override;
+	void Kill() override;
+	void UpdatePlayerReference(CVector3f playerPosition);
 	void Render() override;
-	void Face(CVector3f player);
+	void Face();
 	void Move(float dt);
-	void Flee(float dt);
+	void TooFar();
+	void Flee();
+	void Indifferent();
+	void Fight();
+	void Dead();
 	enum states {
 		TOOFAR,
 		FIGHT,
 		FLEE,
-		INDIFFERENT
+		INDIFFERENT,
+		DEAD
 	};
-	int m_state;
-	
+	int m_state = INDIFFERENT;
+	CVector3f playerReference;
+	CVector3f playerDirection;
+	bool moving = false;
 };

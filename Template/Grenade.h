@@ -5,6 +5,7 @@
 #include "./include/glut.h"
 #include "ExplosionSprite.h"
 #include "Camera.h"
+#include "BoundingBox.h"
 
 class CGrenade {
 public: 
@@ -14,8 +15,10 @@ public:
 	void Shoot(CVector3f pos);
 	void Explode();
 	void Render();
+	void ActivateExplosion();
 	CVector3f GetPosition();
 	CVector3f GetLastPosition();
+	bool CheckEntityCollision(CBoundingBox otherBox);
 public:
 	float m_timeAlive = 0;
 	bool exploded = false;
@@ -27,6 +30,7 @@ public:
 	CVector3f m_acceleration;
 	CVector3f m_instantaneousAcceleration;
 	CVector3f m_lastPosition;
+	CVector3f m_explosionPosition;
 
 	// Rotational physical quantities
 	CVector3f m_angle;
@@ -49,4 +53,6 @@ public:
 	// Methods to handle collisions with the ground
 	bool GroundCollisionDetection(float yPlane);
 	void GroundCollisionResponse();
+
+	CBoundingBox m_bbox;
 };
